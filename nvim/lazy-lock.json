@@ -1,0 +1,5 @@
+{
+  "hop.nvim": { "branch": "master", "commit": "6d853addd6e11df8338b26e869a29b36f2c3e893" },
+  "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
+  "solarized-osaka.nvim": { "branch": "main", "commit": "e436a77eb643fe42d52b229c5cdf2e72dda88ed4" }
+}
