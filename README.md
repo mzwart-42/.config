@@ -1,5 +1,5 @@
 ## Install kitty on codam machine
-(source https://sw.kovidgoyal.net/kitty/binary/):
+_(source https://sw.kovidgoyal.net/kitty/binary/)_
 This installs kitty in the home folder, specificly at `~/.local/kitty.app`
 ```
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
