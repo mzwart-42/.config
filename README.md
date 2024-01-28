@@ -1,6 +1,6 @@
 # My terminal rice 🍚
-The files in this repo need to be located in `~/.config`.
-for nvim Stdheader set the `USER42` environment variable to intra login
+The files in this repo need to be located in `~/.config`, except for `.zshenv` which resides in the home folder.
+For nvim Stdheader set the `USER42` environment variable to intra login in
 #### screenshot of kitty
 ![image](https://github.com/mzwart-42/.config/assets/152659366/d7dff60f-2371-48fc-b6d6-97426693e93c)
 (changed inactive text alpha to 1.0 for the example)
@@ -16,5 +16,5 @@ For convienently launching the app add the desktop icon to gnome.
 ## use the fonts_in_config
 Move/copy the folder `fonts_in_config` to the user specific font directory `~/.local/share/fonts`
 ```
-mkdir -p ~/.local/share/fonts && mv ~/.config/fonts_in_config ~/.local/share/fonts/comic_code
+mkdir -p ~/.local/share/fonts && cp ~/.config/fonts_in_config ~/.local/share/fonts/comic_code
 ```
