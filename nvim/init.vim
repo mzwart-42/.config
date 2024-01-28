@@ -1,15 +1,3 @@
-" **************************************************************************** "
-"                                                                              "
-"                                                         :::      ::::::::    "
-"    init.vim                                           :+:      :+:    :+:    "
-"                                                     +:+ +:+         +:+      "
-"    By: mzwart <mzwart@student.codam.nl>           +#+  +:+       +#+         "
-"                                                 +#+#+#+#+#+   +#+            "
-"    Created: 2024/01/28 14:52:02 by mzwart            #+#    #+#              "
-"    Updated: 2024/01/28 14:52:02 by mzwart           ###   ########.fr        "
-"                                                                              "
-" **************************************************************************** "
-
 " [BASIC SETTIGNS]
 set number 
 syntax enable
@@ -82,5 +70,5 @@ endif
 "let g:user42 = 'mzwart'
 "let g:mail42 = 'mzwart@student.codam.nl'
 lua require ('plugins')
-source stdheader.vim
+source $HOME/.config/nvim/stdheader.vim
 colorscheme solarized-osaka
