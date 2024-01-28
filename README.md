@@ -11,7 +11,9 @@ This installs kitty in the home folder, specificly at `~/.local/kitty.app`
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 ```
 For convienently launching the app add the desktop icon to gnome.
-(source https://wiki.archlinux.org/title/Desktop_entries#Application_entry)
+You can copy the `kitty.desktop` file form `~/.local/kitty.app/share/applications`
+
+_(source https://wiki.archlinux.org/title/Desktop_entries#Application_entry)_
 
 ## use the fonts_in_config
 copy(or move) the folder `fonts_in_config` to the user specific font directory `~/.local/share/fonts`
