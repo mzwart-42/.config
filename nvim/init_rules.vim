@@ -1,16 +1,16 @@
-" [NO BRAINERS]
+" [BASIC SETTIGNS]
 set number
 syntax enable
 set nocompatible
 set mouse=r
-" set plugin on
-"
-" [SYSTEM SPECIFIC]
-" make copy work on wayland with wl-copy 
-" (this does occupy the default registers though)
-set clipboard=unnamedplus
-nnoremap "+y y:call system("wl-copy", @")<cr>
-
+" [COPY AND PASTE]
+if $xdg_session_type == "wayland"
+	" make copy to system clipboard work on wayland with wl-copy 
+	set clipboard=unnamedplus
+	nnoremap "+y y:call system("wl-copy", @")<cr>
+endif
+nnoremap yc "+y
+vnoremap yc "+y
 " [AUTOSAVE]
 " map <Esc> <Esc>:w<cr> doesnt work for changes outside of insert mode
 augroup autosave

@@ -13,7 +13,7 @@ autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-PROMPT='%B%F{6}%~%f${vcs_info_msg_0_} -> '
+PROMPT='%B%F{magenta}%~%f${vcs_info_msg_0_} -> '
 #RPROMPT='${vcs_info_msg_0_} ' #right side prompt
 zstyle ':vcs_info:git:*' formats '%F{yellow}_%s(%F{green}%b%F{yellow}%)%f '
 # 256xterm-colors: 206 is nice pink color (syntax for coloring is %F{color}%f)
