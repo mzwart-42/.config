@@ -1,9 +1,4 @@
---load old init.vim, yes it must be in this directory
-vim.cmd('source ~/.config/nvim/init_rules.vim')
---vim.cmd('colorscheme solarized-osaka')
---vim.cmd [[ set background=dark ]]
---vim.cmd [[ colorscheme solarized-dark ]]
-
+-- Lazy setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -35,5 +30,3 @@ local plugins = {
 opts = {}
 
 require("lazy").setup(plugins, opts)
-vim.cmd [[ colorscheme solarized-osaka ]]
-

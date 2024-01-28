@@ -16,18 +16,18 @@ setopt prompt_subst
 PROMPT='%B%F{magenta}%~%f${vcs_info_msg_0_} -> '
 #RPROMPT='${vcs_info_msg_0_} ' #right side prompt
 zstyle ':vcs_info:git:*' formats '%F{yellow}_%s(%F{green}%b%F{yellow}%)%f '
-# 256xterm-colors: 206 is nice pink color (syntax for coloring is %F{color}%f)
 
 # [ALIASES]
+# global aliases (all users)
 alias -g c='clear'
 alias -g ls="ls --color=auto"
-# 	^^ global aliases (all users)
 alias sudo='sudo ' # make all other aliases work in sudo ??
 alias sys='systemctl'
 alias vi='nvim'
-# compiling code
+# compile flags
 alias ccc='cc -Wall -Werror -Wextra'
-alias cccc='ccc -lbsd' # use bsd standard library
+alias cccc='ccc -lbsd'
+alias gdb='gdb --args' #always using args flag seems to have no downsides
 
 cval() {
 	ccc $1 $2 $3 $4 $5 $6 && valgrind ./a.out --leak-check=full --track-origins=yes
