@@ -67,8 +67,7 @@ if $TERM == "xterm-kitty"
 	command! KittyBufferHistoryClean call KittyBufferHistoryClean()
 endif
 
-"let g:user42 = 'mzwart'
-"let g:mail42 = 'mzwart@student.codam.nl'
+" THINGS FORM OTHER FILES
 lua require ('plugins')
 source $HOME/.config/nvim/stdheader.vim
 colorscheme solarized-osaka
