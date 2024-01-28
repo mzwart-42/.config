@@ -1,4 +1,4 @@
-# [BEHAVIOUR STUFF] ¯\_(ツ)_/¯
+# [STUFF] ¯\_(ツ)_/¯
 unsetopt BEEP
 bindkey -e	# emacs mode
 # move over words and delete with ctrl + arrows / backspace

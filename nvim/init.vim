@@ -1,5 +1,17 @@
+" **************************************************************************** "
+"                                                                              "
+"                                                         :::      ::::::::    "
+"    init.vim                                           :+:      :+:    :+:    "
+"                                                     +:+ +:+         +:+      "
+"    By: mzwart <mzwart@student.codam.nl>           +#+  +:+       +#+         "
+"                                                 +#+#+#+#+#+   +#+            "
+"    Created: 2024/01/28 14:52:02 by mzwart            #+#    #+#              "
+"    Updated: 2024/01/28 14:52:02 by mzwart           ###   ########.fr        "
+"                                                                              "
+" **************************************************************************** "
+
 " [BASIC SETTIGNS]
-set number
+set number 
 syntax enable
 set nocompatible
 set mouse=r
@@ -37,10 +49,10 @@ set incsearch
 set ruler
 set showcmd
 " [LINE AT CURSOR]
+" ?
 set cursorline
 highlight CursorLine cterm=bold
 highlight CursorLineNr ctermbg=red ctermfg=white cterm=bold
-" ?
 set modeline
 set modelines=5
 
@@ -48,6 +60,7 @@ set modelines=5
 " add the ability to see the full path with some color highlighting in bar?
 " commenting keybinds...
 
+" Formatting for kitty scrollback with nvim
 if $TERM == "xterm-kitty"
 	function! KittyBufferHistoryClean()
 	  set modifiable
@@ -66,5 +79,8 @@ if $TERM == "xterm-kitty"
 	command! KittyBufferHistoryClean call KittyBufferHistoryClean()
 endif
 
+"let g:user42 = 'mzwart'
+"let g:mail42 = 'mzwart@student.codam.nl'
 lua require ('plugins')
+source stdheader.vim
 colorscheme solarized-osaka

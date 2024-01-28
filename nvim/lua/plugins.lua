@@ -30,3 +30,6 @@ local plugins = {
 opts = {}
 
 require("lazy").setup(plugins, opts)
+
+--let g:user42 = 'mzwart'
+--let g:user42 = 'mzwart@student.codam.nl'
