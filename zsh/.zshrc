@@ -35,12 +35,17 @@ zstyle ':vcs_info:git:*' formats '%F{yellow}_%s(%F{green}%b%F{yellow}%)%f'
 # -g are global aliases (all users)
 alias -g c='clear'
 alias -g ls="ls --color=auto"
-alias sys='systemctl'
+# system stuff
+alias sys ='systemctl'
+
+# git aliases
+alias gs = 'git status'
+alias gl = 'git log'
 # compile flags
-alias ccc='cc -Wall -Werror -Wextra'
-alias cccc='ccc -lbsd'
-alias gdb='gdb --args' #always using args flag seems to have no downsides
-alias val='valgrind --leak-check=full --track-origins=yes'
+alias ccc ='cc -Wall -Werror -Wextra'
+alias cccc ='ccc -lbsd'
+alias gdb ='gdb --args' #always using args flag seems to have no downsides
+alias val ='valgrind --leak-check=full --track-origins=yes'
 cval() {
 	ccc $1 $2 $3 $4 $5 $6 && valgrind ./a.out --leak-check=full --track-origins=yes
 }
