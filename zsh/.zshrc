@@ -15,7 +15,7 @@ precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 PROMPT='%B%F{magenta}%~%f${vcs_info_msg_0_} -> '
 #RPROMPT='${vcs_info_msg_0_} ' #right side prompt
-zstyle ':vcs_info:git:*' formats '%F{yellow}_%s(%F{green}%b%F{yellow}%)%f '
+zstyle ':vcs_info:git:*' formats '%F{yellow}_%s(%F{green}%b%F{yellow}%)%f'
 
 # [ALIASES]
 # global aliases (all users)
