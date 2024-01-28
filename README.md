@@ -1,5 +1,6 @@
 # My terminal rice 🍚
-The files in this repo need to be located in `~/.config`
+The files in this repo need to be located in `~/.config`.
+for nvim Stdheader set the USER42 environment variable to intra login
 #### screenshot of kitty
 ![image](https://github.com/mzwart-42/.config/assets/152659366/d7dff60f-2371-48fc-b6d6-97426693e93c)
 (changed inactive text alpha to 1.0 for the example)
