@@ -2,7 +2,12 @@
 set number 
 syntax enable
 set nocompatible
-set mouse=r
+set mouse=a
+" pluginsless vim? ↓
+set path+=**
+set wildmenu
+" configure the wildmenu
+
 " [COPY AND PASTE]
 if $xdg_session_type == "wayland"
 	" make copy to system clipboard work on wayland with wl-copy 
@@ -12,26 +17,33 @@ endif
 " use yc to copy to system clipboard
 nnoremap yc "+y
 vnoremap yc "+y
-nnoremap Yc "+Y
+" map ctrl+shift+c to clipboard copy
+vnoremap <S-C-C> "+y<cr>
+nnoremap Yc "+Y 
+" ^ this doesn work???!J? 
+
 " [AUTOSAVE]
-" map <Esc> <Esc>:w<cr> doesnt work for changes outside of insert mode
 augroup autosave
     autocmd!
     autocmd BufRead * if &filetype == "" | setlocal ft=text | endif
     autocmd FileType * autocmd TextChanged,InsertLeave <buffer> if &readonly == 0 && &buftype == "" | silent write | endif
 augroup END
-
 " [BRACKET MATCHING]
-" add following options to default match pairs: "< >", "; next ;", "[ ]" 
-" (only for specified filetypes)
+" add following options to default match pairs: "< >", "; and the following ;", "[ ]"
+" allows switching between matching chars with % sign, (for specified filetypes: c, cpp)
 au Filetype c,cpp set matchpairs += ";:;,<:>,[:]"
-" [TAB BEHAVIOUR]
+
+" [CODE FORMATTING]
 set noexpandtab " never expand tab to spaces
 set tabstop=6 " tab width (the amount of spaces a tab visually represents)
 set shiftwidth=6 "tab width but for shifting tabs with cmd's like: >>, <<, ==
+set nowrap
+set scrolloff=8
 
-set hlsearch " highlight search
+" [SEARCHING]
+set hlsearch " highlight all matching text from search
 set ignorecase
+set smartcase
 set incsearch
 " set visualbell
 set ruler
@@ -44,30 +56,41 @@ highlight CursorLineNr ctermbg=red ctermfg=white cterm=bold
 set modeline
 set modelines=5
 
-" nnoremap ,main :-1read ~/.config/nvim/.skeleton.main.c<CR>2ji
-" add the ability to see the full path with some color highlighting in bar?
-" commenting keybinds...
 
-" Formatting for kitty scrollback with nvim
-if $TERM == "xterm-kitty"
-	function! KittyBufferHistoryClean()
-	  set modifiable
-	  set noconfirm
-	  " clean ascii/ansi code  (starts with ^[)
-	  silent! %s/\e\[[0-9:;]*m//g
-	  silent! %s/[^[:alnum:][:punct:][:space:]]//g
-	  silent! %s/\e\[[^\s]*\s//g
-	  " remove empty spaces from end
-	  silent! %s/\s*$//
-	  let @/ = ""
-	  set rnu
-	  " map q to force quit
-	  cnoremap q q!
-	endfunction
-	command! KittyBufferHistoryClean call KittyBufferHistoryClean()
-endif
+" [COMMENTING]
+"let commented = match(getline('.'), ' *--.*')
+"vnoremap <leader>i <C-v>^I//<ESC>
+let g:commentChar = "//"
+function! ToggleComment()
+ " Get the current line and its content
+ let l:currentLine = getline('.')
 
-" THINGS FORM OTHER FILES
+ " Check if the line starts with the comment character
+ if l:currentLine =~ '^' . g:commentChar
+    " If it does, remove the comment character
+    call setline('.', substitute(l:currentLine, '^' . g:commentChar, '', ''))
+ else
+    " Otherwise, add the comment character at the beginning of the line
+    call setline('.', g:commentChar . l:currentLine)
+ endif
+endfunction
+" Map the function to a key combination, for example, '<leader>c'
+nnoremap <leader>c :call ToggleComment()<CR>
+vnoremap <leader>c :call ToggleComment()<CR>
+
+
+" [THINGS FORM OTHER FILES]
 lua require ('plugins')
+"lua require ('lsp_setup')
+
+" 42 Header
 source $HOME/.config/nvim/stdheader.vim
+" runtime doesnt require absolute path like source
+source 
 colorscheme solarized-osaka
+
+" TODO
+" 1. create a keymap that changes file path in statusbar to $PWD/file or some
+" other sutff
+" 2. completely working commenting keybinds
+

@@ -8,7 +8,7 @@
 # Then reload kitty for the config to take affect.
 # Alternatively copy paste below directly into kitty.conf
 
-foreground            #9eabac
+foreground            #f8f8f2
 background            #000000
 selection_foreground  #ffffff
 selection_background  #44475a
@@ -33,8 +33,7 @@ color11 #ffffa5
 
 # blue
 color4  #8be9fd
-color12 #a4ffff
-
+color12 #d6acff
 
 # magenta
 color5  #ff79c6
@@ -42,19 +41,19 @@ color13 #ff92df
 
 # cyan
 color6  #bd93f9
-color14 #d6acff
+color14 #a4ffff
 
 # white
-color7  #9eabac
-color15 #f8f8f2
+color7  #f8f8f2
+color15 #ffffff
 
 # Cursor colors
-cursor   #9eabac
+cursor   #f8f8f2
 cursor_text_color background
 
 # Tab bar colors
 active_tab_foreground   #000000
-active_tab_background   #9eabac
+active_tab_background   #f8f8f2
 inactive_tab_foreground #000000
 inactive_tab_background #6272a4
 

@@ -12,9 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 local plugins = {
-	"craftzdog/solarized-osaka.nvim", 
+	"craftzdog/solarized-osaka.nvim",
+	"rose-pine/neovim", name = "rose-pine",
 	-- increase white text intensity of this colorscheme
 	lazy = false,
 	priority = 1000,
@@ -24,12 +24,14 @@ local plugins = {
 	version = "*",
 	opts = {},
 
-	--plugin for multiple occurence editing improvements
-
+	--[LSP SERVERs]
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	"neovim/nvim-lspconfig",
 }
 opts = {}
 
 require("lazy").setup(plugins, opts)
 
---let g:user42 = 'mzwart'
---let g:user42 = 'mzwart@student.codam.nl'
+-- OTHER STUFF
+vim.opt.title = true
