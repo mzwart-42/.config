@@ -1,4 +1,4 @@
-# [STUFF] ¯\_(ツ)_/¯
+# [STUFF]
 unsetopt BEEP
 bindkey -e	# emacs mode
 # move over words and delete with ctrl + arrows / backspace
@@ -10,13 +10,17 @@ bindkey ' ' magic-space
 
 # [PROMPT]
 # git: https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Zsh
+# command for displaying 256term colors: curl -s https://gist.githubusercontent.com/HaleTom/89ffe32783f89f403bba96bd7bcd1263/raw/e50a28ec54188d2413518788de6c6367ffcea4f7/print256colours.sh | bash
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-PROMPT='%B%F{magenta}%~%f${vcs_info_msg_0_} -> '
-RPROMPT='%F{cyan}%~' #right side prompt
-zstyle ':vcs_info:git:*' formats '%F{yellow}_%s(%F{green}%b%F{yellow}%)%f'
+zstyle ':vcs_info:git:*' formats 'on %F{2}%b%f'
+# precmd gets executed before prompt is displayed
+UP_PROMPT='%F{6}%~ %f${vcs_info_msg_0_}'
+PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f) ~> %b'
+#PROMPT=' %F{6}Φ%~ %f'
+#RPROMPT='%F{6}%~' #right side prompt
 
 # [ALIASES]
 # -g are global aliases (all users)
@@ -58,3 +62,5 @@ fi
 alias francinette=$HOME/francinette/tester.sh
 alias paco=$HOME/francinette/tester.sh
 
+# git completion
+# fpath=($ZDOT_DIR $fpath)
