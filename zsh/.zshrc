@@ -22,25 +22,26 @@ PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f) ~> %b'
 #PROMPT=' %F{6}Φ%~ %f'
 #RPROMPT='%F{6}%~' #right side prompt
 
-# [ALIASES]
-# -g are global aliases (all users)
-#
-alias -g c='clear'
+# [SYSTEM ALIASES]
+alias -g c='clear' # -g are global aliases (all users)
 alias -g ls="ls --color=auto"
-# system stuff
 alias sys ='systemctl'
 
-# git aliases
+#[ALIASES used for CODING]
 alias gs='git status'
 alias gl='git log'
-# compile flags
+
 alias ccc='cc -Wall -Werror -Wextra'
 alias cccc='ccc -lbsd'
-alias gdb='gdb --args' #always using args flag seems to have no downsides
-alias val='valgrind --leak-check=full --track-origins=yes'
-cval() {
-	ccc $@ && valgrind ./a.out --leak-check=full --track-origins=yes
+alias val='valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all'
+gdbv() {
+	gdb -ex "target extended-remote:$1" -ex "set remote exec-file $2" -ex "set args $3"
 }
+cval() {
+	ccc $@ && valgrind ./a.out --leak-check=full --track-origins=yes --show-leak-kinds=all
+}
+#alias gdb='gdb --args' #always using args flag seems to have no downsides
+# [EXTERNAL STUFF]
 #add nvim tar to path
 export PATH="$PATH:$HOME/bin/nvim-linux64/bin"
 # add kitty custom install path
