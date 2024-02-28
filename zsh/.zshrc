@@ -25,7 +25,7 @@ PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f) ~> %b'
 # [SYSTEM ALIASES]
 alias -g c='clear' # -g are global aliases (all users)
 alias -g ls="ls --color=auto"
-alias sys ='systemctl'
+alias sys='systemctl'
 
 #[ALIASES used for CODING]
 alias gs='git status'
