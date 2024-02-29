@@ -14,13 +14,11 @@ if $xdg_session_type == "wayland"
 	set clipboard=unnamedplus
 	nnoremap "+y y:call system("wl-copy", @")<cr>
 endif
-" use yc to copy to system clipboard
-nnoremap yc "+y
-vnoremap yc "+y
-" map ctrl+shift+c to clipboard copy
+" use CTRL+Y to copy to system clipboard
 vnoremap <S-C-C> "+y<cr>
-nnoremap Yc "+Y 
-" ^ this doesn work???!J? 
+nnoremap <C-Y> "+y<cr>
+vnoremap <C-Y> "+y
+nnoremap <C-S-Y> "+Y 
 
 " [AUTOSAVE]
 augroup autosave
