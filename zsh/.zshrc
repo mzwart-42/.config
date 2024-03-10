@@ -15,10 +15,10 @@ autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-zstyle ':vcs_info:git:*' formats 'on %F{2}%b%f'
+zstyle ':vcs_info:git:*' formats '%F{8}on%f %F{2}%b%f'
 # precmd gets executed before prompt is displayed
 UP_PROMPT='%F{6}%~ %f${vcs_info_msg_0_}'
-PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f) ~> %b'
+PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{8} ~> %f%b'
 #PROMPT=' %F{6}Φ%~ %f'
 #RPROMPT='%F{6}%~' #right side prompt
 
@@ -42,9 +42,9 @@ cval() {
 }
 #alias gdb='gdb --args' #always using args flag seems to have no downsides
 # [EXTERNAL STUFF]
-#add nvim tar to path
-export PATH="$PATH:$HOME/bin/nvim-linux64/bin"
-# add kitty custom install path
+#add nvim tar to path (for codam)
+#export PATH="$PATH:$HOME/bin/nvim-linux64/bin"
+# add kitty custom install to path
 export PATH="$PATH:$HOME/.local/kitty.app/bin"
 
 # [REQUIRED FOR NVIM NEWEST VERSION ON CODAM MACHINES]
@@ -63,5 +63,9 @@ fi
 alias francinette=$HOME/francinette/tester.sh
 alias paco=$HOME/francinette/tester.sh
 
-# git completion
-# fpath=($ZDOT_DIR $fpath)
+# [SYNTAX HIGHLIGHTING]
+# Color syntax highlighting according to dracula color scheme
+source $HOME/.config/zsh/dracula-zsh-highlighting.sh
+# comment out line below if you don't like SYNTAX HIGHLIGHTING
+source /home/mosh/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
