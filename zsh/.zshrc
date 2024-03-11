@@ -8,6 +8,9 @@ bindkey "^H" backward-kill-word
 #expand previous command(fetched for example w/ !!)
 bindkey ' ' magic-space 
 
+# [ENVIRONMENT VARIABLES]
+export EDITOR="nvim" # gets overwitten by codam.sh
+
 # [PROMPT]
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info } # precmd gets executed before prompt is displayed
@@ -35,14 +38,13 @@ alias cccc='ccc -lbsd'
 alias val='valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all'
 gdbv() {
 	gdb -ex "target extended-remote:$1" -ex "set remote exec-file $2" -ex "set args $3"
-}
+} # crazy gdb and valgrind setup: https://www.redhat.com/en/blog/valgrind-and-gdb-close-cooperation
 cval() {
 	ccc $@ && valgrind ./a.out --leak-check=full --track-origins=yes --show-leak-kinds=all
-}
-#alias gdb='gdb --args' #always using args flag seems to have no downsides
+} # compile and run valgrind
 
 # [CODAM SPECIFIC CONFIGURATION]
-# source codam.sh if the file exists
+# for codam configuration to work properly set the environment variable USER42 to intra login
 if [[ -a $HOME/.config/zsh/codam.sh ]]; then
 	source $HOME/.config/zsh/codam.sh
 fi
@@ -52,4 +54,9 @@ fi
 source $HOME/.config/zsh/dracula-zsh-highlighting.sh
 # comment out line below if you don't like SYNTAX HIGHLIGHTING
 source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# [DEVICE SPECIFIC STUFF]
+if [[ -a $HOME/.config/zsh/specific.sh ]]; then
+	source $HOME/.config/zsh/specific.sh
+fi
 

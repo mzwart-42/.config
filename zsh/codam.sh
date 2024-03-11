@@ -10,6 +10,7 @@ export PATH="$PATH:$HOME/bin/nvim-linux64/bin"
 then
 	alias vi='nvim_tar'
 	alias nvim='nvim_tar'
+	export EDITOR="nvim_tar"
 fi
 alias francinette=$HOME/francinette/tester.sh
 alias paco=$HOME/francinette/tester.sh
