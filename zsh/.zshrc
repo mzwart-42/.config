@@ -9,28 +9,27 @@ bindkey "^H" backward-kill-word
 bindkey ' ' magic-space 
 
 # [PROMPT]
-# git: https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Zsh
-# command for displaying 256term colors: curl -s https://gist.githubusercontent.com/HaleTom/89ffe32783f89f403bba96bd7bcd1263/raw/e50a28ec54188d2413518788de6c6367ffcea4f7/print256colours.sh | bash
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
+precmd_vcs_info() { vcs_info } # precmd gets executed before prompt is displayed
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 zstyle ':vcs_info:git:*' formats '%F{8}on%f %F{2}%b%f'
-# precmd gets executed before prompt is displayed
 UP_PROMPT='%F{6}%~ %f${vcs_info_msg_0_}'
 PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{8} ~> %f%b'
 #PROMPT=' %F{6}Φ%~ %f'
 #RPROMPT='%F{6}%~' #right side prompt
+# info about git: https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Zsh
+# command for displaying 256term colors: curl -s https://gist.githubusercontent.com/HaleTom/89ffe32783f89f403bba96bd7bcd1263/raw/e50a28ec54188d2413518788de6c6367ffcea4f7/print256colours.sh | bash
 
 # [SYSTEM ALIASES]
 alias -g c='clear' # -g are global aliases (all users)
 alias -g ls="ls --color=auto"
-alias sys='systemctl'
+alias -g sys='systemctl'
+alias -g vi='nvim' # gets overwritten by codam.sh
 
 #[ALIASES used for CODING]
 alias gs='git status'
 alias gl='git log'
-
 alias ccc='cc -Wall -Werror -Wextra'
 alias cccc='ccc -lbsd'
 alias val='valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all'
@@ -41,31 +40,16 @@ cval() {
 	ccc $@ && valgrind ./a.out --leak-check=full --track-origins=yes --show-leak-kinds=all
 }
 #alias gdb='gdb --args' #always using args flag seems to have no downsides
-# [EXTERNAL STUFF]
-#add nvim tar to path (for codam)
-#export PATH="$PATH:$HOME/bin/nvim-linux64/bin"
-# add kitty custom install to path
-export PATH="$PATH:$HOME/.local/kitty.app/bin"
 
-# [REQUIRED FOR NVIM NEWEST VERSION ON CODAM MACHINES]
-# follow the README.md to install the newest version of nvim to have support for lazy plugin manager
-# add nvim tar to path
-export PATH="$PATH:$HOME/bin/nvim-linux64/bin"
-# Make sure the USER42 environment variable is set to make the comparison true
- if [[ $USER == $USER42 ]] 
-then
-	#use the tar version for up to date vim, check PATH for location
-	alias vi='nvim_tar'
-	alias nvim='nvim_tar'
-else
-	alias vi='nvim'
+# [CODAM SPECIFIC CONFIGURATION]
+# source codam.sh if the file exists
+if [[ -a $HOME/.config/zsh/codam.sh ]]; then
+	source $HOME/.config/zsh/codam.sh
 fi
-alias francinette=$HOME/francinette/tester.sh
-alias paco=$HOME/francinette/tester.sh
 
 # [SYNTAX HIGHLIGHTING]
 # Color syntax highlighting according to dracula color scheme
 source $HOME/.config/zsh/dracula-zsh-highlighting.sh
 # comment out line below if you don't like SYNTAX HIGHLIGHTING
-source /home/mosh/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
