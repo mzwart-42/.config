@@ -50,10 +50,10 @@ if [[ -a $HOME/.config/zsh/codam.sh ]]; then
 fi
 
 # [SYNTAX HIGHLIGHTING]
-# Color syntax highlighting according to dracula color scheme
-source $HOME/.config/zsh/dracula-zsh-highlighting.sh
-# comment out line below if you don't like SYNTAX HIGHLIGHTING
 source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Color syntax highlighting according to dracula color scheme...
+# Recommend to only use it with the complimentary color theming
+#	source $HOME/.config/zsh/dracula-zsh-highlighting.sh
 
 # [DEVICE SPECIFIC STUFF]
 if [[ -a $HOME/.config/zsh/specific.sh ]]; then

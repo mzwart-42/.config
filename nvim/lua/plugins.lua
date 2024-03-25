@@ -13,12 +13,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+	-- COLOR THEMES --
 	"craftzdog/solarized-osaka.nvim",
-	"rose-pine/neovim", name = "rose-pine",
-	-- increase white text intensity of this colorscheme
+	-- TODO: increase white text intensity of this colorscheme
 	lazy = false,
 	priority = 1000,
 	opts = {},
+
+	"rose-pine/neovim", name = "rose-pine",
+
+	"catppuccin/nvim", name = "catppuccin", priority = 1000,
 
 	"smoka7/hop.nvim",
 	version = "*",

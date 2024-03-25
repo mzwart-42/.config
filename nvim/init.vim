@@ -85,7 +85,7 @@ lua require ('plugins')
 source $HOME/.config/nvim/stdheader.vim
 " runtime doesnt require absolute path like source
 source 
-colorscheme solarized-osaka
+colorscheme catppuccin
 
 " TODO
 " 1. create a keymap that changes file path in statusbar to $PWD/file or some
