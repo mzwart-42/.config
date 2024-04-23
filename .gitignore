@@ -1,4 +1,6 @@
 *
-nvim/lazy-lock.json
 !.gitignore
-
+!zsh
+!nvim
+!kitty
+nvim/lazy-lock.json
