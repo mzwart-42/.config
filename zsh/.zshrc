@@ -33,6 +33,8 @@ alias -g vi='nvim' # gets overwritten by codam.sh
 #[ALIASES used for CODING]
 alias gs='git status'
 alias gl='git log'
+alias gc='git commit -m' "$1"
+alias ga='git commit --amend -m' "$1"
 alias ccc='cc -Wall -Werror -Wextra'
 alias cccc='ccc -lbsd'
 alias val='valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all'

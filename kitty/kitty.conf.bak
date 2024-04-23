@@ -5,7 +5,7 @@
 # Colors and themes
 #include ./themes/dracula_black.conf
 include ./themes/Catppuccin-Mocha.conf
- wayland_titlebar_color	#11111B
+wayland_titlebar_color	#11111B
 
 # tab bar
 tab_bar_min_tabs		1
@@ -60,9 +60,3 @@ map ctrl+shift+right move_window right
 # disable code ligatures on mouse hover?
 # this only works on fonts with calt ligatures, adjust features ?
 
-
-
-# BEGIN_KITTY_THEME
-# Tokyo Night
-include current-theme.conf
-# END_KITTY_THEME
