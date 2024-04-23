@@ -31,15 +31,23 @@ alias -g sys='systemctl'
 alias -g vi='nvim' # gets overwritten by codam.sh
 
 #[ALIASES used for CODING]
-alias gs='git status'
 alias gl='git log'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m "$(printf "%s" "$@")"'
+alias gm='(){ git commit --amend -m "$(printf "%s" "$@")"; }'
 alias ccc='cc -Wall -Werror -Wextra'
 alias cccc='ccc -lbsd'
 alias val='valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all'
-gdbv() {
+function gc() {
+	echo "Enter commit message:"
+	read msg
+	git commit -m "$msg"
+}
+function gdbv() {
 	gdb -ex "target extended-remote:$1" -ex "set remote exec-file $2" -ex "set args $3"
 } # crazy gdb and valgrind setup: https://www.redhat.com/en/blog/valgrind-and-gdb-close-cooperation
-cval() {
+function cval() {
 	ccc $@ && valgrind ./a.out --leak-check=full --track-origins=yes --show-leak-kinds=all
 } # compile and run valgrind
 

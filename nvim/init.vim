@@ -91,4 +91,7 @@ colorscheme catppuccin
 " 1. create a keymap that changes file path in statusbar to $PWD/file or some
 " other sutff
 " 2. completely working commenting keybinds
+"
+
+" dim colors
 
