@@ -4,3 +4,4 @@
 !nvim
 !kitty
 nvim/lazy-lock.json
+zsh/.histfile
