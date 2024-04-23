@@ -51,7 +51,6 @@ PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{8} ~> %f%b'
 # **old stuff**
 #PROMPT=' %F{6}Φ%~ %f'
 #RPROMPT='%F{6}%~' #right side prompt
-# info about git prompt:
 
 # [CODAM SPECIFIC CONFIGURATION]
 # for codam configuration to work properly set the environment variable USER42 to intra login
