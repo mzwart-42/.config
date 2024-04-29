@@ -1,7 +1,14 @@
-*
+# Block list: files/folders in same directory as the .gitignore file
+/*
+
+# Include list: files and folders
 !.gitignore
-!zsh
-!nvim
-!kitty
-nvim/lazy-lock.json
-zsh/.histfile
+!nvim/
+!zsh/
+!kitty/
+
+# Ignore all files named .histfile and files ending in .json, etc.
+**/.histfile
+**.json
+**.zcompdump
+#**.json
