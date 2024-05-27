@@ -59,7 +59,7 @@ if [[ -a $HOME/.config/zsh/codam.zsh ]]; then
 fi
 
 # [SYNTAX HIGHLIGHTING]
-syntax_dir="$ZDOTDIR/misc/zsh-syntax-highlighting"
-source $syntax_dir/zsh-syntax-highlighting.zsh
+syntax_dir="$ZDOTDIR/zsh-syntax-highlighting"
+source "$syntax_dir/zsh-syntax-highlighting.zsh"
 # dracula color theme:
 # source $syntax_dir/dracula-zsh-highlighting.sh

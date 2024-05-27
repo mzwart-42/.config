@@ -20,6 +20,9 @@ nnoremap <C-Y> "+y<cr>
 vnoremap <C-Y> "+y
 nnoremap <C-S-Y> "+Y 
 
+nnoremap ]q :cnext<cr>
+nnoremap [q :cprev<cr>
+
 " [AUTOSAVE]
 augroup autosave
     autocmd!
