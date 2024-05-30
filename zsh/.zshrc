@@ -59,7 +59,10 @@ if [[ -a $HOME/.config/zsh/codam.zsh ]]; then
 fi
 
 # [SYNTAX HIGHLIGHTING]
-syntax_dir="$ZDOTDIR/zsh-syntax-highlighting"
-source "$syntax_dir/zsh-syntax-highlighting.zsh"
+if [[ ! -d ./zsh-syntax-highlighting ]]; then
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+	echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+fi
+source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # dracula color theme:
 # source $syntax_dir/dracula-zsh-highlighting.sh
