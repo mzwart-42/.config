@@ -89,9 +89,9 @@ vnoremap <leader>c :call ToggleComment()<CR>
 
 " [THINGS FORM OTHER FILES]
 lua require ('plugins')
-"lua require('leap').create_default_mappings()
-"lua require ('lsp_setup')
-lua require('flash').toggle()
+"lua require('flash').toggle()
+
+" lua-heredoc 
 
 " 42 Header
 source $HOME/.config/nvim/stdheader.vim
