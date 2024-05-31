@@ -37,6 +37,8 @@ local plugins = {
 	{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
 	},
 
+	"nvim-lualine/lualine.nvim",
+	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	--[LSP SERVERs]
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
@@ -95,4 +97,7 @@ vim.cmd.colorscheme "catppuccin"
 -- OTHER STUFF
 vim.opt.title = true
 
---lua require('leap').create_default_mappings()
+-- LUA LINE
+require('lualine').setup {
+	options = { theme = 'catppuccin' }
+}
