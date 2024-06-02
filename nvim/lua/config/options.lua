@@ -3,6 +3,9 @@
 -- Add any additional options here
 
 vim.opt.expandtab = false -- use spaces instead of tabs
-vim.opt.tabstop = 4
+vim.opt.tabstop = 6
+vim.opt.shiftwidth = 6
+
+vim.opt.scrolloff = 8
 
 --vim.cmd("colorscheme catppuccin-mocha")
