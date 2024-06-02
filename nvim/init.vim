@@ -20,8 +20,15 @@ nnoremap <C-Y> "+y<cr>
 vnoremap <C-Y> "+y
 nnoremap <C-S-Y> "+Y 
 
+" Quickfix list
 nnoremap ]q :cnext<cr>
 nnoremap [q :cprev<cr>
+
+" Better window navigation
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " [AUTOSAVE]
 augroup autosave
