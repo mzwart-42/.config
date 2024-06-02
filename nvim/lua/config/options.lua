@@ -8,4 +8,14 @@ vim.opt.shiftwidth = 6
 
 vim.opt.scrolloff = 8
 
+vim.opt.formatoptions:remove("o")
+
+
+
+--
+--
+--
+--
+--
 --vim.cmd("colorscheme catppuccin-mocha")
+--

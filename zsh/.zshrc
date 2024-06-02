@@ -64,4 +64,5 @@ if [[ ! -d $ZDOTDIR/zsh-syntax-highlighting ]]; then
 fi
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # dracula color theme:
-# source $syntax_dir/dracula-zsh-highlighting.sh
+# source $syntax_dir/dracula-zsh-highlighting.shell
+#

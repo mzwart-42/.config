@@ -2,4 +2,10 @@
 require("config.lazy")
 
 --colorscheme is not lazy loaded :( increase boot up time
+
 vim.cmd("colorscheme catppuccin")
+
+
+
+vim.opt.formatoptions:remove("o")
+

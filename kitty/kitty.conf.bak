@@ -65,6 +65,6 @@ map ctrl+shift+right move_window right
 
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
+# Tokyo Night Moon
 include current-theme.conf
 # END_KITTY_THEME
