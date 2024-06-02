@@ -1,9 +1,4 @@
-# My terminal rice 🍚
-The files in this repo need to be located in `~/.config`, except for `.zshenv` which resides in the home folder.
-For nvim Stdheader set the `USER42` environment variable to your intra login
-#### screenshot of kitty
-![image](https://github.com/mzwart-42/.config/assets/152659366/d7dff60f-2371-48fc-b6d6-97426693e93c)
-(changed inactive text alpha to 1.0 for the example)
+# My terminal setup 🍚
 ## Install kitty on codam machine
 _(source https://sw.kovidgoyal.net/kitty/binary/)_
 This installs kitty in the home folder, specificly at `~/.local/kitty.app`
