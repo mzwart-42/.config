@@ -60,7 +60,7 @@ fi
 
 # [SYNTAX HIGHLIGHTING]
 if [[ ! -d $ZDOTDIR/zsh-syntax-highlighting ]]; then
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/zsh-syntax-highlighting
 fi
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # dracula color theme:
