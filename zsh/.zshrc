@@ -54,14 +54,14 @@ PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{8} ~> %f%b'
 
 # [CODAM SPECIFIC CONFIGURATION]
 # for codam configuration to work properly set the environment variable USER42 to intra login
-if [[ -a $HOME/.config/zsh/codam.zsh ]]; then
-	source $HOME/.config/zsh/codam.zsh
+if [[ -a $ZDOTDIR/codam.zsh ]]; then
+	source $ZDOTDIR/codam.zsh 
 fi
 
 # [SYNTAX HIGHLIGHTING]
-#if [[ ! -d $ZDOTDIR/zsh-syntax-highlighting ]]; then
-#	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-#fi
-source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ ! -d $ZDOTDIR/zsh-syntax-highlighting ]]; then
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/zsh-syntax-highlighting
+fi
+source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # dracula color theme:
 # source $syntax_dir/dracula-zsh-highlighting.sh
