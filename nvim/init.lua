@@ -85,7 +85,6 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -107,13 +106,33 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- because this don't work vim.opt.formatoptions:remove('o')
-vim.api.nvim_create_autocmd({"FileType"}, {
+vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = '*',
-  callback = function ()
-    vim.opt.formatoptions:remove({ 'o' })
-  end
+  callback = function()
+    vim.opt.formatoptions:remove { 'o' }
+  end,
 })
 
+-- autosave
+local function save()
+  local buf = vim.api.nvim_get_current_buf()
+
+  vim.api.nvim_buf_call(buf, function()
+    vim.cmd 'silent! write'
+  end)
+end
+
+vim.api.nvim_create_augroup('AutoSave', {
+  clear = true,
+})
+
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+  callback = function()
+    save()
+  end,
+  pattern = '*',
+  group = 'AutoSave',
+})
 
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
@@ -795,17 +814,17 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --  'folke/tokyonight.nvim',
-  --  priority = 1000, -- Make sure to load this before all the other start plugins.
-  --  init = function()
-  --    -- Load the colorscheme here.
-  --    -- Like many other themes, this one has different styles, and you could load
-  --    -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --    vim.cmd.colorscheme 'tokyonight-night'
+    --  'folke/tokyonight.nvim',
+    --  priority = 1000, -- Make sure to load this before all the other start plugins.
+    --  init = function()
+    --    -- Load the colorscheme here.
+    --    -- Like many other themes, this one has different styles, and you could load
+    --    -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --    vim.cmd.colorscheme 'tokyonight-night'
 
-  --    -- You can configure highlights by doing something like:
-  --    vim.cmd.hi 'Comment gui=none'
-  --  end,
+    --    -- You can configure highlights by doing something like:
+    --    vim.cmd.hi 'Comment gui=none'
+    --  end,
   },
 
   -- Highlight todo, notes, etc in comments
@@ -897,19 +916,16 @@ require('lazy').setup({
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
-
-  
-
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-   { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 
-   { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim' }},
+  { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim' } },
 
---end of lazy setup
+  --end of lazy setup
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -930,37 +946,48 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
-
-    
 })
 
-
 -- colorscheme
-  vim.cmd.colorscheme('rose-pine')
+vim.cmd.colorscheme 'rose-pine'
 
-  vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
-
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 
 -- harpoon
-local harpoon = require("harpoon")
+local harpoon = require 'harpoon'
 
 -- REQUIRED
 harpoon:setup()
 -- REQUIRED
 
-vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set('n', '<leader>a', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<C-e>', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
 
-vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-k>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-;>", function() harpoon:list():select(4) end)
+vim.keymap.set('n', '<C-j>', function()
+  harpoon:list():select(1)
+end)
+vim.keymap.set('n', '<C-k>', function()
+  harpoon:list():select(2)
+end)
+vim.keymap.set('n', '<C-l>', function()
+  harpoon:list():select(3)
+end)
+vim.keymap.set('n', '<C-;>', function()
+  harpoon:list():select(4)
+end)
 
 -- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
-
+vim.keymap.set('n', '<C-S-P>', function()
+  harpoon:list():prev()
+end)
+vim.keymap.set('n', '<C-S-N>', function()
+  harpoon:list():next()
+end)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
