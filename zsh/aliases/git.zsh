@@ -1,4 +1,5 @@
 #[ALIASES used for CODING]
+alias lg='lazygit'
 alias gl='git log'
 alias gs='git status'
 alias ga='git add'
