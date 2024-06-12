@@ -92,6 +92,12 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- remap kj to esc
+-- vim.keymap.set('i', 'jk', '<esc><esc>')
+--  vim.keymap.set('n', 'jk', '<esc><esc>')
+--  vim.keymap.set('c', 'jk', '<C-C>')
+
+--vim.opt.timeoutlen=50
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -108,6 +114,9 @@ vim.opt.relativenumber = true
 
 -- make diffs always vertical split
 vim.opt.diffopt = "vertical"
+
+-- make files search with :e not case sensitive
+vim.opt.wildignorecase = true
 
 vim.keymap.set('n', '[q', ':cprev<cr>')
 vim.keymap.set('n', ']q', ':cnext<cr>')
