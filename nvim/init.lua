@@ -109,6 +109,9 @@ vim.opt.relativenumber = true
 -- make diffs always vertical split
 vim.opt.diffopt = "vertical"
 
+vim.keymap.set('n', '[q', ':cprev<cr>')
+vim.keymap.set('n', ']q', ':cnext<cr>')
+
 -- because this don't work vim.opt.formatoptions:remove('o')
 vim.api.nvim_create_autocmd({"FileType"}, {
   pattern = '*',
