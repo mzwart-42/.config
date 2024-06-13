@@ -91,6 +91,12 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- remap kj to esc
+-- vim.keymap.set('i', 'jk', '<esc><esc>')
+--  vim.keymap.set('n', 'jk', '<esc><esc>')
+--  vim.keymap.set('c', 'jk', '<C-C>')
+
+--vim.opt.timeoutlen=50
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -99,11 +105,20 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
---
+-- NOTE :QUICK ADITIONS >>
+
 -- Make line numbers default
---
 vim.opt.number = true
 vim.opt.relativenumber = true
+
+-- make diffs always vertical split
+vim.opt.diffopt = "vertical"
+
+-- make files search with :e not case sensitive
+vim.opt.wildignorecase = true
+
+vim.keymap.set('n', '[q', ':cprev<cr>')
+vim.keymap.set('n', ']q', ':cnext<cr>')
 
 -- because this don't work vim.opt.formatoptions:remove('o')
 vim.api.nvim_create_autocmd({ 'FileType' }, {
@@ -114,6 +129,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 -- autosave
+<<<<<<< HEAD
 local function save()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -133,6 +149,63 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
   pattern = '*',
   group = 'AutoSave',
 })
+=======
+local api = vim.api
+local fn = vim.fn
+
+local delay = 250 -- ms
+
+local autosave = api.nvim_create_augroup("autosave", { clear = true })
+-- Initialization
+api.nvim_create_autocmd("BufRead", {
+    pattern = "*",
+    group = autosave,
+    callback = function(ctx)
+        api.nvim_buf_set_var(ctx.buf, "autosave_queued", false)
+        api.nvim_buf_set_var(ctx.buf, "autosave_block", false)
+    end,
+})
+
+api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+    pattern = "*",
+    group = autosave,
+    callback = function(ctx)
+        -- conditions that donnot do autosave
+        local disabled_ft = { "acwrite", "oil" }
+        if
+            not vim.bo.modified
+            or fn.findfile(ctx.file, ".") == "" -- a new file
+            or ctx.file:match("wezterm.lua")
+            or vim.tbl_contains(disabled_ft, vim.bo[ctx.buf].ft)
+        then
+            return
+        end
+
+        local ok, queued = pcall(api.nvim_buf_get_var, ctx.buf, "autosave_queued")
+        if not ok then
+            return
+        end
+
+        if not queued then
+            vim.cmd("silent w")
+            api.nvim_buf_set_var(ctx.buf, "autosave_queued", true)
+            vim.notify("Saved at " .. os.date("%H:%M:%S"))
+        end
+
+        local block = api.nvim_buf_get_var(ctx.buf, "autosave_block")
+        if not block then
+            api.nvim_buf_set_var(ctx.buf, "autosave_block", true)
+            vim.defer_fn(function()
+                if api.nvim_buf_is_valid(ctx.buf) then
+                    api.nvim_buf_set_var(ctx.buf, "autosave_queued", false)
+                    api.nvim_buf_set_var(ctx.buf, "autosave_block", false)
+                end
+            end, delay)
+        end
+    end,
+})
+
+>>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
 
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
@@ -207,7 +280,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
+-- TODO: make this keybind also quit lazygit if it is open
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -846,7 +921,7 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      --require('mini.surround').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -947,15 +1022,23 @@ require('lazy').setup({
     },
   },
 })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
 -- colorscheme
 vim.cmd.colorscheme 'rose-pine'
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 
+<<<<<<< HEAD
 -- harpoon
 local harpoon = require 'harpoon'
+=======
+-- HARPOON
+local harpoon = require("harpoon")
+>>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
 
 -- REQUIRED
 harpoon:setup()
@@ -982,12 +1065,33 @@ vim.keymap.set('n', '<C-;>', function()
 end)
 
 -- Toggle previous & next buffers stored within Harpoon list
+<<<<<<< HEAD
 vim.keymap.set('n', '<C-S-P>', function()
   harpoon:list():prev()
 end)
 vim.keymap.set('n', '<C-S-N>', function()
   harpoon:list():next()
 end)
+=======
+vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
+harpoon:extend({
+  UI_CREATE = function(cx)
+    vim.keymap.set("n", "<C-v>", function()
+      harpoon.ui:select_menu_item({ vsplit = true })
+    end, { buffer = cx.bufnr })
+
+    vim.keymap.set("n", "<C-x>", function()
+      harpoon.ui:select_menu_item({ split = true })
+    end, { buffer = cx.bufnr })
+
+    vim.keymap.set("n", "<C-t>", function()
+      harpoon.ui:select_menu_item({ tabedit = true })
+    end, { buffer = cx.bufnr })
+  end,
+})
+>>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
