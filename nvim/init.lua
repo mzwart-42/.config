@@ -112,7 +112,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- make diffs always vertical split
-vim.opt.diffopt = "vertical"
+vim.opt.diffopt = 'vertical'
 
 -- make files search with :e not case sensitive
 vim.opt.wildignorecase = true
@@ -129,83 +129,60 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 -- autosave
-<<<<<<< HEAD
-local function save()
-  local buf = vim.api.nvim_get_current_buf()
-
-  vim.api.nvim_buf_call(buf, function()
-    vim.cmd 'silent! write'
-  end)
-end
-
-vim.api.nvim_create_augroup('AutoSave', {
-  clear = true,
-})
-
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
-  callback = function()
-    save()
-  end,
-  pattern = '*',
-  group = 'AutoSave',
-})
-=======
 local api = vim.api
 local fn = vim.fn
 
 local delay = 250 -- ms
 
-local autosave = api.nvim_create_augroup("autosave", { clear = true })
+local autosave = api.nvim_create_augroup('autosave', { clear = true })
 -- Initialization
-api.nvim_create_autocmd("BufRead", {
-    pattern = "*",
-    group = autosave,
-    callback = function(ctx)
-        api.nvim_buf_set_var(ctx.buf, "autosave_queued", false)
-        api.nvim_buf_set_var(ctx.buf, "autosave_block", false)
-    end,
+api.nvim_create_autocmd('BufRead', {
+  pattern = '*',
+  group = autosave,
+  callback = function(ctx)
+    api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
+    api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
+  end,
 })
 
-api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
-    pattern = "*",
-    group = autosave,
-    callback = function(ctx)
-        -- conditions that donnot do autosave
-        local disabled_ft = { "acwrite", "oil" }
-        if
-            not vim.bo.modified
-            or fn.findfile(ctx.file, ".") == "" -- a new file
-            or ctx.file:match("wezterm.lua")
-            or vim.tbl_contains(disabled_ft, vim.bo[ctx.buf].ft)
-        then
-            return
-        end
+api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+  pattern = '*',
+  group = autosave,
+  callback = function(ctx)
+    -- conditions that donnot do autosave
+    local disabled_ft = { 'acwrite', 'oil' }
+    if
+      not vim.bo.modified
+      or fn.findfile(ctx.file, '.') == '' -- a new file
+      or ctx.file:match 'wezterm.lua'
+      or vim.tbl_contains(disabled_ft, vim.bo[ctx.buf].ft)
+    then
+      return
+    end
 
-        local ok, queued = pcall(api.nvim_buf_get_var, ctx.buf, "autosave_queued")
-        if not ok then
-            return
-        end
+    local ok, queued = pcall(api.nvim_buf_get_var, ctx.buf, 'autosave_queued')
+    if not ok then
+      return
+    end
 
-        if not queued then
-            vim.cmd("silent w")
-            api.nvim_buf_set_var(ctx.buf, "autosave_queued", true)
-            vim.notify("Saved at " .. os.date("%H:%M:%S"))
-        end
+    if not queued then
+      vim.cmd 'silent w'
+      api.nvim_buf_set_var(ctx.buf, 'autosave_queued', true)
+      vim.notify('Saved at ' .. os.date '%H:%M:%S')
+    end
 
-        local block = api.nvim_buf_get_var(ctx.buf, "autosave_block")
-        if not block then
-            api.nvim_buf_set_var(ctx.buf, "autosave_block", true)
-            vim.defer_fn(function()
-                if api.nvim_buf_is_valid(ctx.buf) then
-                    api.nvim_buf_set_var(ctx.buf, "autosave_queued", false)
-                    api.nvim_buf_set_var(ctx.buf, "autosave_block", false)
-                end
-            end, delay)
+    local block = api.nvim_buf_get_var(ctx.buf, 'autosave_block')
+    if not block then
+      api.nvim_buf_set_var(ctx.buf, 'autosave_block', true)
+      vim.defer_fn(function()
+        if api.nvim_buf_is_valid(ctx.buf) then
+          api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
+          api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
         end
-    end,
+      end, delay)
+    end
+  end,
 })
-
->>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
 
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
@@ -282,7 +259,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 -- TODO: make this keybind also quit lazygit if it is open
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -1022,23 +998,14 @@ require('lazy').setup({
     },
   },
 })
-<<<<<<< HEAD
-
-=======
->>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
+--
 -- colorscheme
 vim.cmd.colorscheme 'rose-pine'
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 
-<<<<<<< HEAD
--- harpoon
 local harpoon = require 'harpoon'
-=======
--- HARPOON
-local harpoon = require("harpoon")
->>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
 
 -- REQUIRED
 harpoon:setup()
@@ -1065,33 +1032,28 @@ vim.keymap.set('n', '<C-;>', function()
 end)
 
 -- Toggle previous & next buffers stored within Harpoon list
-<<<<<<< HEAD
 vim.keymap.set('n', '<C-S-P>', function()
   harpoon:list():prev()
 end)
 vim.keymap.set('n', '<C-S-N>', function()
   harpoon:list():next()
 end)
-=======
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
-harpoon:extend({
+harpoon:extend {
   UI_CREATE = function(cx)
-    vim.keymap.set("n", "<C-v>", function()
-      harpoon.ui:select_menu_item({ vsplit = true })
+    vim.keymap.set('n', '<C-v>', function()
+      harpoon.ui:select_menu_item { vsplit = true }
     end, { buffer = cx.bufnr })
 
-    vim.keymap.set("n", "<C-x>", function()
-      harpoon.ui:select_menu_item({ split = true })
+    vim.keymap.set('n', '<C-x>', function()
+      harpoon.ui:select_menu_item { split = true }
     end, { buffer = cx.bufnr })
 
-    vim.keymap.set("n", "<C-t>", function()
-      harpoon.ui:select_menu_item({ tabedit = true })
+    vim.keymap.set('n', '<C-t>', function()
+      harpoon.ui:select_menu_item { tabedit = true }
     end, { buffer = cx.bufnr })
   end,
-})
->>>>>>> 59b266b76d34a27ad8ff8bc9df4ad6eca9d21b78
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
