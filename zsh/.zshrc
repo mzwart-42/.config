@@ -67,8 +67,8 @@ source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # dracula color theme:
 # source $syntax_dir/dracula-zsh-highlighting.sh
 
-export LD_LIBRARY_PATH=/home/mzwart/.capt/root/lib/x86_64-linux-gnu:/home/mzwart/.capt/root/usr/lib/x86_64-linux-gnu:
-export PATH=/home/mzwart/.capt:/home/mzwart/.capt/root/usr/local/sbin:/home/mzwart/.capt/root/usr/local/bin:/home/mzwart/.capt/root/usr/sbin:/home/mzwart/.capt/root/usr/bin:/home/mzwart/.capt/root/sbin:/home/mzwart/.capt/root/bin:/home/mzwart/.capt/root/usr/games:/home/mzwart/.capt/root/usr/local/games:/home/mzwart/.capt/snap/bin:/home/mzwart/bin:/home/mzwart/.local/kitty.app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mzwart/.dotnet/tools:/home/mzwart/.local/kitty.app/bin:/home/mzwart/bin/nvim-linux64/bin
+#export LD_LIBRARY_PATH=/home/mzwart/.capt/root/lib/x86_64-linux-gnu:/home/mzwart/.capt/root/usr/lib/x86_64-linux-gnu:
+#export PATH=/home/mzwart/.capt:/home/mzwart/.capt/root/usr/local/sbin:/home/mzwart/.capt/root/usr/local/bin:/home/mzwart/.capt/root/usr/sbin:/home/mzwart/.capt/root/usr/bin:/home/mzwart/.capt/root/sbin:/home/mzwart/.capt/root/bin:/home/mzwart/.capt/root/usr/games:/home/mzwart/.capt/root/usr/local/games:/home/mzwart/.capt/snap/bin:/home/mzwart/bin:/home/mzwart/.local/kitty.app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mzwart/.dotnet/tools:/home/mzwart/.local/kitty.app/bin:/home/mzwart/bin/nvim-linux64/bin
 
 
 
