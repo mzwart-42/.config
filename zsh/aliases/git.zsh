@@ -3,10 +3,10 @@ alias lg='lazygit'
 alias gl='git log'
 alias gs='git status'
 alias ga='git add'
-alias gc='git commit -m' "$1"
-alias gm='git commit --amend -m' "$1"
+alias gc='git commit -m'
+alias gca='git commit --amend -m'
 alias ccc='cc -Wall -Werror -Wextra'
-alias cccc='ccc -lbsd'
+alias cccbsd='ccc -lbsd'
 alias val='valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all'
 alias gdb='gdb --args'
 gdbv() {

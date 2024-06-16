@@ -1,7 +1,7 @@
 # [SYSTEM ALIASES]
-alias -g c='clear' # -g are global aliases (all users)
+# dont need an alias for clear, CTRL-L is a superior method of clearing the screen
 alias -g ls="ls --color=auto"
 alias -g sys='systemctl'
-alias -g vi='nvim' # gets overwritten by codam.sh
+alias -g vi='nvim' # possibly gets overwritten by codam.sh
 
 alias gdb='gdb -q --args'

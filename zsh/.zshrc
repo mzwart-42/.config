@@ -1,7 +1,7 @@
 # [STUFF]
-unsetopt BEEP
+unsetopt BEEP # remove annoying *beep* (only in shell)
 bindkey -e	# emacs mode
-# move over words with ctrl + arrows and delete with ctrl + backspace
+# move over words with ctrl + arrows and delete with ctrl + backspace (kinda finicky with nvim term)
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^H" backward-kill-word
@@ -21,7 +21,6 @@ source $alias_dir/codam.zsh
 HISTFILE=$ZDOTDIR/.histfile
 SAVEHIST=1000
 HISTSIZE=1000
-
 # info about these options can be found in manual page 'zshoptions'
 setopt append_history         # Allow multiple sessions to append to one Zsh command history.
 setopt extended_history       # Show timestamp in history.
@@ -49,26 +48,17 @@ zstyle ':vcs_info:git:*' formats '%F{8}on%f %F{2}%b%f'
 UP_PROMPT='%F{6}%~ %f${vcs_info_msg_0_}'
 PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{8} ~> %f%b'
 
-# **old stuff**
-#PROMPT=' %F{6}Φ%~ %f'
-#RPROMPT='%F{6}%~' #right side prompt
+# TIP: you can load a preinstalled theme with the following setup (useful when no internet)
 
-# [CODAM SPECIFIC CONFIGURATION]
-# for codam configuration to work properly set the environment variable USER42 to intra login
-if [[ -a $ZDOTDIR/codam.zsh ]]; then
-	source $ZDOTDIR/codam.zsh 
-fi
+
+
+# [42 SPECIFIC CONFIGURATION]
+# for making kitty and nvim work on 42 machine
+source $ZDOTDIR/codam.sh --quiet
 
 # [SYNTAX HIGHLIGHTING]
+# remove isntalling later
 if [[ ! -d $ZDOTDIR/zsh-syntax-highlighting ]]; then
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/zsh-syntax-highlighting
 fi
-source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# dracula color theme:
-# source $syntax_dir/dracula-zsh-highlighting.sh
-
-#export LD_LIBRARY_PATH=/home/mzwart/.capt/root/lib/x86_64-linux-gnu:/home/mzwart/.capt/root/usr/lib/x86_64-linux-gnu:
-#export PATH=/home/mzwart/.capt:/home/mzwart/.capt/root/usr/local/sbin:/home/mzwart/.capt/root/usr/local/bin:/home/mzwart/.capt/root/usr/sbin:/home/mzwart/.capt/root/usr/bin:/home/mzwart/.capt/root/sbin:/home/mzwart/.capt/root/bin:/home/mzwart/.capt/root/usr/games:/home/mzwart/.capt/root/usr/local/games:/home/mzwart/.capt/snap/bin:/home/mzwart/bin:/home/mzwart/.local/kitty.app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mzwart/.dotnet/tools:/home/mzwart/.local/kitty.app/bin:/home/mzwart/bin/nvim-linux64/bin
-
-
-
+source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh --quiet
