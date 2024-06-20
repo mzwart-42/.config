@@ -1015,10 +1015,7 @@ require('lazy').setup({
 })
 --
 -- colorscheme
-vim.cmd.colorscheme 'rose-pine'
-
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+vim.cmd.colorscheme 'cyberdream'
 
 local harpoon = require 'harpoon'
 

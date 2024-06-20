@@ -8,15 +8,13 @@ include ./themes/dracula_black.conf
 # wayland_titlebar_color	#000000
 
 # tab bar
-tab_bar_min_tabs		1
+tab_bar_min_tabs	1
 tab_bar_edge		bottom
 tab_bar_style		powerline
 tab_powerline_style	slanted
 tab_title_template          {title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}
 
 scrollback_lines 4000
-
-# wayland titlebar of window
 
 # Font stuff (command for listing available fonts: kitty +list-fonts)
 font_family		Comic Code Ligatures Medium 
@@ -32,18 +30,21 @@ window_padding_width 2 1
 inactive_text_alpha 0.6
 
 # Transparency
-background_opacity 0.87
+background_opacity 0.9
 
+background_blur 1
 # Keybinds
 # Remaped old Keymaps (to make space for new)
 # need to remap: input unicode, pass selection to program
 map ctrl+shift+[ show_scrollback
 map ctrl+shift+; next_layout
-map ctrl+shift+i new_os_window
-map ctrl+shift+k load_config_file ~/.config/kitty/kitty.conf
+#map ctrl+shift+/ load_config_file ~/.config/kitty/kitty.conf
+
 # New Keymaps
 map ctrl+shift+enter new_window_with_cwd
 map ctrl+shift+o new_os_window_with_cwd
+map ctrl+shift+i new_os_window
+
 map ctrl+shift+n next_window
 map ctrl+shift+p nth_window -1 # previously selected window
 # vim like window focus
@@ -65,6 +66,6 @@ map ctrl+shift+right move_window right
 
 
 # BEGIN_KITTY_THEME
-# Adventure Time
+# Catppuccin-Mocha
 include current-theme.conf
 # END_KITTY_THEME
