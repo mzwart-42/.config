@@ -991,6 +991,25 @@ require('lazy').setup({
     },
   },
 
+{
+  "Diogo-ss/42-header.nvim",
+  cmd = { "Stdheader" },
+  keys = { "<F1>" },
+  opts = {
+    default_map = true, -- Default mapping <F1> in normal mode.
+    auto_update = true, -- Update header when saving.
+    user = "mzwart", -- Your user.
+    mail = "mzwart@student.codam.nl", -- Your mail.
+    -- add other options.
+  },
+  config = function(_, opts)
+    require("42header").setup(opts)
+  end,
+},
+
+  { "vim-syntastic/syntastic",},
+  { "alexandregv/norminette-vim", },
+
   --end of lazy setup
 }, {
   ui = {
@@ -1013,7 +1032,15 @@ require('lazy').setup({
     },
   },
 })
---
+
+-- norminette
+vim.g.syntastic_c_checkers = {'norminette', 'gcc'}
+vim.g.syntastic_aggregate_errors = 1
+
+vim.keymap.set('n', '<leader>nb', ':Norminette<cr><C-W>k');
+vim.keymap.set('n', '<leader>ne', ':next<cr>:Norminette<cr><C-W>k');
+vim.keymap.set('n', '<leader>np', ':prev<cr>:Norminette<cr><C-W>k');
+
 -- colorscheme
 vim.cmd.colorscheme 'cyberdream'
 

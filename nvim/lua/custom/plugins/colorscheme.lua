@@ -5,7 +5,10 @@ return
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
-    opts = { transparent = true; },
+    opts = { 
+                transparent = true;
+                colors = { purple = "#bde5ff",  bg = "#bde5ff"},
+            },
     },
 
     -- catppuccin

@@ -66,6 +66,6 @@ map ctrl+shift+right move_window right
 
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
+# Cyberdream
 include current-theme.conf
 # END_KITTY_THEME
