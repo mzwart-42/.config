@@ -46,7 +46,7 @@ precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 zstyle ':vcs_info:git:*' formats '%F{8}on%f %F{2}%b%f' 
 UP_PROMPT='%F{6}%~ %f${vcs_info_msg_0_}'
-PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{7} ~> %f%b'
+PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{12} ~> %f%b'
 
 # TIP: you can load a preinstalled theme with the following setup (useful when no internet)
 
