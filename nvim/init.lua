@@ -902,17 +902,11 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
@@ -974,7 +968,14 @@ require('lazy').setup({
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
 
+
   { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+
+
 
   {
     "folke/flash.nvim",
@@ -1035,15 +1036,16 @@ require('lazy').setup({
 
 -- norminette
 vim.g.syntastic_c_checkers = {'norminette', 'gcc'}
-vim.g.syntastic_aggregate_errors = 1
+vim.g.syntastic_aggregate_errors = 0
 
-vim.keymap.set('n', '<leader>nb', ':Norminette<cr><C-W>k');
+vim.keymap.set('n', '<leader>nn', ':Norminette<cr><C-W>k');
 vim.keymap.set('n', '<leader>ne', ':next<cr>:Norminette<cr><C-W>k');
 vim.keymap.set('n', '<leader>np', ':prev<cr>:Norminette<cr><C-W>k');
 
 -- colorscheme
 vim.cmd.colorscheme 'cyberdream'
 
+-- harpoon
 local harpoon = require 'harpoon'
 
 -- REQUIRED
@@ -1094,5 +1096,10 @@ harpoon:extend {
   end,
 }
 
+  require('lualine').setup ({
+      options = {
+    theme = "auto",
+      },
+  })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
