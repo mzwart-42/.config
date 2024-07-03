@@ -3,9 +3,10 @@
 # Reload config file: cltr + shift + F5
 
 # Colors and themes
-include ./themes/dracula_black.conf
 #include ./themes/Catppuccin-Mocha.conf
 # wayland_titlebar_color	#000000
+
+enable_audio_bell no
 
 # tab bar
 tab_bar_min_tabs	1
@@ -58,14 +59,18 @@ map ctrl+shift+down move_window down
 map ctrl+shift+up move_window up
 map ctrl+shift+right move_window right
 
-#
+# comma separated list of all layouts
+enabled_layouts tall:bias=50;full_size=1,  tall:bias=70;full_size=2, stack
+#map ctrl+shift+, layout_action bias 50 68 80
+
+
+
+
 # TODO
 # disable code ligatures on mouse hover?
 # this only works on fonts with calt ligatures, adjust features ?
 
-
-
 # BEGIN_KITTY_THEME
 # Cyberdream
-include current-theme.conf
+include ./themes/cyberdeam.conf
 # END_KITTY_THEME

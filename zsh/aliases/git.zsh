@@ -2,7 +2,10 @@
 alias lg='lazygit'
 alias gl='git log'
 alias gs='git status'
-alias ga='git add'
+ga () {
+	git add $@ && git status
+}
+
 alias gc='git commit -m'
 alias gca='git commit --amend -m'
 alias ccc='cc -Wall -Werror -Wextra'
