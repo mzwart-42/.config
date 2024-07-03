@@ -105,85 +105,6 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
--- NOTE :QUICK ADITIONS >>
-
--- Make line numbers default
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- make diffs always vertical split
-vim.opt.diffopt = 'vertical'
-
--- make files search with :e not case sensitive
-vim.opt.wildignorecase = true
-
-vim.keymap.set('n', '[q', ':cprev<cr>')
-vim.keymap.set('n', ']q', ':cnext<cr>')
-
--- because this don't work vim.opt.formatoptions:remove('o')
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  pattern = '*',
-  callback = function()
-    vim.opt.formatoptions:remove { 'o' }
-  end,
-})
-
--- autosave
-local api = vim.api
-local fn = vim.fn
-
-local delay = 250 -- ms
-
-local autosave = api.nvim_create_augroup('autosave', { clear = true })
--- Initialization
-api.nvim_create_autocmd('BufRead', {
-  pattern = '*',
-  group = autosave,
-  callback = function(ctx)
-    api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
-    api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
-  end,
-})
-
-api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
-  pattern = '*',
-  group = autosave,
-  callback = function(ctx)
-    -- conditions that donnot do autosave
-    local disabled_ft = { 'acwrite', 'oil' }
-    if
-      not vim.bo.modified
-      or fn.findfile(ctx.file, '.') == '' -- a new file
-      or ctx.file:match 'wezterm.lua'
-      or vim.tbl_contains(disabled_ft, vim.bo[ctx.buf].ft)
-    then
-      return
-    end
-
-    local ok, queued = pcall(api.nvim_buf_get_var, ctx.buf, 'autosave_queued')
-    if not ok then
-      return
-    end
-
-    if not queued then
-      vim.cmd 'silent w'
-      api.nvim_buf_set_var(ctx.buf, 'autosave_queued', true)
-      vim.notify('Saved at ' .. os.date '%H:%M:%S')
-    end
-
-    local block = api.nvim_buf_get_var(ctx.buf, 'autosave_block')
-    if not block then
-      api.nvim_buf_set_var(ctx.buf, 'autosave_block', true)
-      vim.defer_fn(function()
-        if api.nvim_buf_is_valid(ctx.buf) then
-          api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
-          api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
-        end
-      end, delay)
-    end
-  end,
-})
-
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 -- vim.opt.relativenumber = true
@@ -340,6 +261,11 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      -- keys = {
+      --   {'n', '<leader>gt :Gitsigns toggle_signs<cr>', { desc = "toggle signs"} },
+      --
+      -- },
+      --
     },
   },
 
@@ -374,7 +300,7 @@ require('lazy').setup({
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+        ['<leader>g'] = { name = 'Git stuff', _ = 'which_key_ignore' },
       }
       -- visual mode
       require('which-key').register({
@@ -969,14 +895,17 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 
 
-  { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim' } },
+  -- TODO: SEPARATE THESE CUSTOM PLUGINS INTO MODULAR SYSTEM / FODLER STRUCTURE
+  
+  -- LOOKS:
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
 
-
-
+  
+  -- NAVIGATION:
+  { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim' } },
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -992,24 +921,32 @@ require('lazy').setup({
     },
   },
 
-{
-  "Diogo-ss/42-header.nvim",
-  cmd = { "Stdheader" },
-  keys = { "<F1>" },
-  opts = {
-    default_map = true, -- Default mapping <F1> in normal mode.
-    auto_update = true, -- Update header when saving.
-    user = "mzwart", -- Your user.
-    mail = "mzwart@student.codam.nl", -- Your mail.
-    -- add other options.
-  },
-  config = function(_, opts)
-    require("42header").setup(opts)
-  end,
-},
+  -- EDITING:
+  
 
-  { "vim-syntastic/syntastic",},
+
+  -- FORMATTING AND DEBUGGING:
+
+  -- qol upgrades for quickfix-list
+  { "romainl/vim-qf", },
+  --{ "vim-syntastic/syntastic",},
   { "alexandregv/norminette-vim", },
+
+  {
+    "Diogo-ss/42-header.nvim",
+    cmd = { "Stdheader" },
+    keys = { "<F1>" },
+    opts = {
+      default_map = true, -- Default mapping <F1> in normal mode.
+      auto_update = true, -- Update header when saving.
+      user = "mzwart", -- Your user.
+      mail = "mzwart@student.codam.nl", -- Your mail.
+      -- add other options.
+    },
+    config = function(_, opts)
+      require("42header").setup(opts)
+    end,
+  },
 
   --end of lazy setup
 }, {
@@ -1033,18 +970,66 @@ require('lazy').setup({
     },
   },
 })
+--------------------------------------------------------------------------------
+
+  require('lualine').setup ({
+      options = {
+    theme = "auto",
+      },
+  })
+
+-- colorscheme
+vim.cmd.colorscheme 'cyberdream'
+
+--------------------------------------------------------------------------------
 
 -- norminette
 vim.g.syntastic_c_checkers = {'norminette', 'gcc'}
 vim.g.syntastic_aggregate_errors = 0
 
-vim.keymap.set('n', '<leader>nn', ':Norminette<cr><C-W>k');
-vim.keymap.set('n', '<leader>ne', ':next<cr>:Norminette<cr><C-W>k');
-vim.keymap.set('n', '<leader>np', ':prev<cr>:Norminette<cr><C-W>k');
+-- Opens the quickfix list because of vim-qf plugin.
+-- Prepending 'norm' or 'execute' simulates typing the command,
+-- making it visible in the cmd-line history ' q: '
 
--- colorscheme
-vim.cmd.colorscheme 'cyberdream'
 
+vim.keymap.set('n', '<leader>qm', ":make<cr>", {remap = false} );
+vim.keymap.set('n', '<leader>qn', ':Norminette<cr><esc><C-W>k', {remap = false});
+
+-- repeat the last command in the Command-line history ' @: ', in the next or previous buffer
+vim.keymap.set('n', '<leader>np', ':prev@:<cr>');
+vim.keymap.set('n', '<leader>nn', ':next@:<cr>');
+
+vim.cmd('nnoremap <F3> aText <Cmd>echo mode(1)<CR> Added<Esc>')
+
+vim.cmd('nnoremap <leader>r :norm.<CR>')
+
+-- make command line always open with history, needs refining
+--vim.keymap.set('c', '<esc>', '<esc>:q');
+--vim.keymap.set('n', ':', 'q:i');
+--vim.keymap.set('n', '/', 'q/i');
+
+vim.keymap.set('n', '[q', ':cprev<cr>zz')
+vim.keymap.set('n', ']q', ':cnext<cr>zz')
+vim.keymap.set('n', '[b', ':bprev<cr>zz')
+vim.keymap.set('n', ']b', ':bnext<cr>zz')
+
+vim.keymap.set('n', '[Q', ':colder<cr>')
+vim.keymap.set('n', ']Q', ':cnewer<cr>')
+
+-- toggle quickfix window
+local function toggle_quickfix()
+  local windows = vim.fn.getwininfo()
+  for _, win in pairs(windows) do
+    if win["quickfix"] == 1 then
+      vim.cmd.cclose()
+      return
+    end
+  end
+  vim.cmd.copen()
+end
+
+vim.keymap.set('n', '<Leader>qt', toggle_quickfix, { desc = "Toggle Quickfix Window" })
+--------------------------------------------------------------------------------
 -- harpoon
 local harpoon = require 'harpoon'
 
@@ -1095,11 +1080,105 @@ harpoon:extend {
     end, { buffer = cx.bufnr })
   end,
 }
+--------------------------------------------------------------------------------
 
-  require('lualine').setup ({
-      options = {
-    theme = "auto",
-      },
-  })
+-- NOTE :QUICK ADITIONS >>
+
+-- Make line numbers default
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+-- make diffs always vertical split
+vim.opt.diffopt = 'vertical'
+
+-- make files search with :e not case sensitive
+vim.opt.wildignorecase = true
+
+-- because this don't work vim.opt.formatoptions:remove('o')
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  pattern = '*',
+  callback = function()
+    vim.opt.formatoptions:remove { 'o' }
+  end,
+})
+
+-------------------- autosave ----------------------
+-- autosave
+local function save()
+  local buf = vim.api.nvim_get_current_buf()
+
+  vim.api.nvim_buf_call(buf, function()
+    vim.cmd 'silent! write'
+  end)
+end
+
+vim.api.nvim_create_augroup('AutoSave', {
+  clear = true,
+})
+
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+  callback = function()
+    save()
+  end,
+  pattern = '*',
+  group = 'AutoSave',
+})
+
+-- local api = vim.api
+-- local fn = vim.fn
+--
+-- local delay = 250 -- ms
+--
+-- local autosave = api.nvim_create_augroup('autosave', { clear = true })
+-- -- Initialization
+-- api.nvim_create_autocmd('BufRead', {
+--   pattern = '*',
+--   group = autosave,
+--   callback = function(ctx)
+--     api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
+--     api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
+--   end,
+-- })
+--
+-- api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+--   pattern = '*',
+--   group = autosave,
+--   callback = function(ctx)
+--     -- conditions that donnot do autosave
+--     local disabled_ft = { 'acwrite', 'oil' }
+--     if
+--       not vim.bo.modified
+--       or fn.findfile(ctx.file, '.') == '' -- a new file
+--       or ctx.file:match 'wezterm.lua'
+--       or vim.tbl_contains(disabled_ft, vim.bo[ctx.buf].ft)
+--     then
+--       return
+--     end
+--
+--     local ok, queued = pcall(api.nvim_buf_get_var, ctx.buf, 'autosave_queued')
+--     if not ok then
+--       return
+--     end
+--
+--     if not queued then
+--       vim.cmd 'silent w'
+--       api.nvim_buf_set_var(ctx.buf, 'autosave_queued', true)
+--       vim.notify('Saved at ' .. os.date '%H:%M:%S')
+--     end
+--
+--     local block = api.nvim_buf_get_var(ctx.buf, 'autosave_block')
+--     if not block then
+--       api.nvim_buf_set_var(ctx.buf, 'autosave_block', true)
+--       vim.defer_fn(function()
+--         if api.nvim_buf_is_valid(ctx.buf) then
+--           api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
+--           api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
+--         end
+--       end, delay)
+--     end
+--   end,
+-- })
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
