@@ -1,6 +1,6 @@
 # [STUFF]
-unsetopt BEEP # remove annoying *beep* (only in shell)
-unsetopt LIST_BEEP
+#unsetopt BEEP # remove annoying *beep* (only in shell)
+#unsetopt LIST_BEEP
 bindkey -e	# emacs mode
 # move over words with ctrl + arrows and delete with ctrl + backspace (kinda finicky with nvim term)
 bindkey "^[[1;5C" forward-word
@@ -63,3 +63,30 @@ if [[ ! -d $ZDOTDIR/zsh-syntax-highlighting ]]; then
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/zsh-syntax-highlighting
 fi
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh --quiet
+
+# [AUTO COMPLETION]
+autoload -U compinit; compinit
+
+# fzf tab completion( copy pasted from github repo)
+
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# Disable bell for command completions
+zstyle ':completion:*' completion-list-bell 'none'
+
+# Disable bell for error messages
+zstyle ':main:' error-message-bell 'none'
+
+

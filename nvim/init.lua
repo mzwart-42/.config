@@ -87,6 +87,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
+
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -261,11 +262,6 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      -- keys = {
-      --   {'n', '<leader>gt :Gitsigns toggle_signs<cr>', { desc = "toggle signs"} },
-      --
-      -- },
-      --
     },
   },
 
@@ -786,24 +782,6 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    --  'folke/tokyonight.nvim',
-    --  priority = 1000, -- Make sure to load this before all the other start plugins.
-    --  init = function()
-    --    -- Load the colorscheme here.
-    --    -- Like many other themes, this one has different styles, and you could load
-    --    -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-    --    vim.cmd.colorscheme 'tokyonight-night'
-
-    --    -- You can configure highlights by doing something like:
-    --    vim.cmd.hi 'Comment gui=none'
-    --  end,
-  },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -828,7 +806,6 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
@@ -894,57 +871,51 @@ require('lazy').setup({
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
 
-
   -- TODO: SEPARATE THESE CUSTOM PLUGINS INTO MODULAR SYSTEM / FODLER STRUCTURE
-  
-  -- LOOKS:
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-  },
 
-  
-  -- NAVIGATION:
-  { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim' } },
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.Config
-    opts = {},
-    -- stylua: ignore
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
-  },
+  -- LOOKS:
 
   -- EDITING:
-  
 
+  {
+    'nvim-pack/nvim-spectre',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    opts = {},
+    keys = {
+      {
+        '<leader>p',
+        mode = { 'n', 'v' },
+        function()
+          require('spectre').toggle()
+        end,
+        { desc = 'Toggle Spectre' },
+      },
+      --{'<leader>r', mode = { 'n', 'v' }, function() require("spectre").open_visual({select_word=true}) end, { desc = "Toggle Spectre" } },
+    },
+  },
 
   -- FORMATTING AND DEBUGGING:
 
   -- qol upgrades for quickfix-list
-  { "romainl/vim-qf", },
+  { 'romainl/vim-qf' },
   --{ "vim-syntastic/syntastic",},
-  { "alexandregv/norminette-vim", },
+  { 'alexandregv/norminette-vim' },
 
   {
-    "Diogo-ss/42-header.nvim",
-    cmd = { "Stdheader" },
-    keys = { "<F1>" },
+    'Diogo-ss/42-header.nvim',
+    cmd = { 'Stdheader' },
+    keys = { '<F1>' },
     opts = {
       default_map = true, -- Default mapping <F1> in normal mode.
       auto_update = true, -- Update header when saving.
-      user = "mzwart", -- Your user.
-      mail = "mzwart@student.codam.nl", -- Your mail.
+      user = 'mzwart', -- Your user.
+      mail = 'mzwart@student.codam.nl', -- Your mail.
       -- add other options.
     },
     config = function(_, opts)
-      require("42header").setup(opts)
+      require('42header').setup(opts)
     end,
   },
 
@@ -972,11 +943,11 @@ require('lazy').setup({
 })
 --------------------------------------------------------------------------------
 
-  require('lualine').setup ({
-      options = {
-    theme = "auto",
-      },
-  })
+require('lualine').setup {
+  options = {
+    theme = 'auto',
+  },
+}
 
 -- colorscheme
 vim.cmd.colorscheme 'cyberdream'
@@ -984,203 +955,14 @@ vim.cmd.colorscheme 'cyberdream'
 --------------------------------------------------------------------------------
 
 -- norminette
-vim.g.syntastic_c_checkers = {'norminette', 'gcc'}
+vim.g.syntastic_c_checkers = { 'norminette', 'gcc' }
 vim.g.syntastic_aggregate_errors = 0
 
 -- Opens the quickfix list because of vim-qf plugin.
 -- Prepending 'norm' or 'execute' simulates typing the command,
 -- making it visible in the cmd-line history ' q: '
 
+require 'options'
 
-vim.keymap.set('n', '<leader>qm', ":make<cr>", {remap = false} );
-vim.keymap.set('n', '<leader>qn', ':Norminette<cr><esc><C-W>k', {remap = false});
-
--- repeat the last command in the Command-line history ' @: ', in the next or previous buffer
-vim.keymap.set('n', '<leader>np', ':prev@:<cr>');
-vim.keymap.set('n', '<leader>nn', ':next@:<cr>');
-
-vim.cmd('nnoremap <F3> aText <Cmd>echo mode(1)<CR> Added<Esc>')
-
-vim.cmd('nnoremap <leader>r :norm.<CR>')
-
--- make command line always open with history, needs refining
---vim.keymap.set('c', '<esc>', '<esc>:q');
---vim.keymap.set('n', ':', 'q:i');
---vim.keymap.set('n', '/', 'q/i');
-
-vim.keymap.set('n', '[q', ':cprev<cr>zz')
-vim.keymap.set('n', ']q', ':cnext<cr>zz')
-vim.keymap.set('n', '[b', ':bprev<cr>zz')
-vim.keymap.set('n', ']b', ':bnext<cr>zz')
-
-vim.keymap.set('n', '[Q', ':colder<cr>')
-vim.keymap.set('n', ']Q', ':cnewer<cr>')
-
--- toggle quickfix window
-local function toggle_quickfix()
-  local windows = vim.fn.getwininfo()
-  for _, win in pairs(windows) do
-    if win["quickfix"] == 1 then
-      vim.cmd.cclose()
-      return
-    end
-  end
-  vim.cmd.copen()
-end
-
-vim.keymap.set('n', '<Leader>qt', toggle_quickfix, { desc = "Toggle Quickfix Window" })
---------------------------------------------------------------------------------
--- harpoon
-local harpoon = require 'harpoon'
-
--- REQUIRED
-harpoon:setup()
--- REQUIRED
-
-vim.keymap.set('n', '<leader>a', function()
-  harpoon:list():add()
-end)
-vim.keymap.set('n', '<C-e>', function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
-
-vim.keymap.set('n', '<C-j>', function()
-  harpoon:list():select(1)
-end)
-vim.keymap.set('n', '<C-k>', function()
-  harpoon:list():select(2)
-end)
-vim.keymap.set('n', '<C-l>', function()
-  harpoon:list():select(3)
-end)
-vim.keymap.set('n', '<C-;>', function()
-  harpoon:list():select(4)
-end)
-
--- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set('n', '<C-S-P>', function()
-  harpoon:list():prev()
-end)
-vim.keymap.set('n', '<C-S-N>', function()
-  harpoon:list():next()
-end)
-
-harpoon:extend {
-  UI_CREATE = function(cx)
-    vim.keymap.set('n', '<C-v>', function()
-      harpoon.ui:select_menu_item { vsplit = true }
-    end, { buffer = cx.bufnr })
-
-    vim.keymap.set('n', '<C-x>', function()
-      harpoon.ui:select_menu_item { split = true }
-    end, { buffer = cx.bufnr })
-
-    vim.keymap.set('n', '<C-t>', function()
-      harpoon.ui:select_menu_item { tabedit = true }
-    end, { buffer = cx.bufnr })
-  end,
-}
---------------------------------------------------------------------------------
-
--- NOTE :QUICK ADITIONS >>
-
--- Make line numbers default
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- make diffs always vertical split
-vim.opt.diffopt = 'vertical'
-
--- make files search with :e not case sensitive
-vim.opt.wildignorecase = true
-
--- because this don't work vim.opt.formatoptions:remove('o')
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  pattern = '*',
-  callback = function()
-    vim.opt.formatoptions:remove { 'o' }
-  end,
-})
-
-
-
--------------------- autosave ----------------------
--- autosave
-local function save()
-  local buf = vim.api.nvim_get_current_buf()
-
-  vim.api.nvim_buf_call(buf, function()
-    vim.cmd 'silent! write'
-  end)
-end
-
-vim.api.nvim_create_augroup('AutoSave', {
-  clear = true,
-})
-
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
-  callback = function()
-    save()
-  end,
-  pattern = '*',
-  group = 'AutoSave',
-})
-
--- local api = vim.api
--- local fn = vim.fn
---
--- local delay = 250 -- ms
---
--- local autosave = api.nvim_create_augroup('autosave', { clear = true })
--- -- Initialization
--- api.nvim_create_autocmd('BufRead', {
---   pattern = '*',
---   group = autosave,
---   callback = function(ctx)
---     api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
---     api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
---   end,
--- })
---
--- api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
---   pattern = '*',
---   group = autosave,
---   callback = function(ctx)
---     -- conditions that donnot do autosave
---     local disabled_ft = { 'acwrite', 'oil' }
---     if
---       not vim.bo.modified
---       or fn.findfile(ctx.file, '.') == '' -- a new file
---       or ctx.file:match 'wezterm.lua'
---       or vim.tbl_contains(disabled_ft, vim.bo[ctx.buf].ft)
---     then
---       return
---     end
---
---     local ok, queued = pcall(api.nvim_buf_get_var, ctx.buf, 'autosave_queued')
---     if not ok then
---       return
---     end
---
---     if not queued then
---       vim.cmd 'silent w'
---       api.nvim_buf_set_var(ctx.buf, 'autosave_queued', true)
---       vim.notify('Saved at ' .. os.date '%H:%M:%S')
---     end
---
---     local block = api.nvim_buf_get_var(ctx.buf, 'autosave_block')
---     if not block then
---       api.nvim_buf_set_var(ctx.buf, 'autosave_block', true)
---       vim.defer_fn(function()
---         if api.nvim_buf_is_valid(ctx.buf) then
---           api.nvim_buf_set_var(ctx.buf, 'autosave_queued', false)
---           api.nvim_buf_set_var(ctx.buf, 'autosave_block', false)
---         end
---       end, delay)
---     end
---   end,
--- })
---
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
