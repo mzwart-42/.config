@@ -941,13 +941,6 @@ require('lazy').setup({
     },
   },
 })
---------------------------------------------------------------------------------
-
-require('lualine').setup {
-  options = {
-    theme = 'auto',
-  },
-}
 
 -- colorscheme
 vim.cmd.colorscheme 'cyberdream'

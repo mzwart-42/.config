@@ -43,8 +43,9 @@ vim.keymap.set('n', '<Leader>ft', toggle_quickfix, { desc = 'Toggle Quickfix Win
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
--- soft wrapping at the edge of the window
+-- soft wrapping at the edge of the window ????????
 vim.opt.linebreak = true
+
 -- can be used to format all to 80 lines with gQ
 vim.opt.textwidth = 80
 
