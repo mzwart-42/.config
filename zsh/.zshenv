@@ -6,3 +6,6 @@ export USER42="mzwart" # nvim Codam Stdheader info
 export EDITOR="nvim" # maybe gets overwritten by codam.sh
 
 # export XDG_CONFIG_HOME="$HOME/.config" ???
+
+# Krita wayland activation
+export QT_QPA_PLATFORM=wayland

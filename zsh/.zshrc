@@ -1,5 +1,5 @@
 # [STUFF]
-#unsetopt BEEP # remove annoying *beep* (only in shell)
+unsetopt BEEP # remove annoying *beep* (only in shell)
 #unsetopt LIST_BEEP
 bindkey -e	# emacs mode
 # move over words with ctrl + arrows and delete with ctrl + backspace (kinda finicky with nvim term)

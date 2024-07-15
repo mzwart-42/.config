@@ -230,6 +230,14 @@ vim.opt.rtp:prepend(lazypath)
 --  To update plugins you can run
 --    :Lazy update
 --
+-- NOTE:  needed by plugins
+
+-- norminette
+vim.g.syntastic_c_checkers = { 'norminette', 'gcc' }
+vim.g.syntastic_aggregate_errors = 0
+
+Login42 = 'mzwart'
+
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
@@ -383,14 +391,14 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      --vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -877,47 +885,10 @@ require('lazy').setup({
 
   -- EDITING:
 
-  {
-    'nvim-pack/nvim-spectre',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    opts = {},
-    keys = {
-      {
-        '<leader>p',
-        mode = { 'n', 'v' },
-        function()
-          require('spectre').toggle()
-        end,
-        { desc = 'Toggle Spectre' },
-      },
-      --{'<leader>r', mode = { 'n', 'v' }, function() require("spectre").open_visual({select_word=true}) end, { desc = "Toggle Spectre" } },
-    },
-  },
-
   -- FORMATTING AND DEBUGGING:
 
   -- qol upgrades for quickfix-list
   { 'romainl/vim-qf' },
-  --{ "vim-syntastic/syntastic",},
-  { 'alexandregv/norminette-vim' },
-
-  {
-    'Diogo-ss/42-header.nvim',
-    cmd = { 'Stdheader' },
-    keys = { '<F1>' },
-    opts = {
-      default_map = true, -- Default mapping <F1> in normal mode.
-      auto_update = true, -- Update header when saving.
-      user = 'mzwart', -- Your user.
-      mail = 'mzwart@student.codam.nl', -- Your mail.
-      -- add other options.
-    },
-    config = function(_, opts)
-      require('42header').setup(opts)
-    end,
-  },
 
   --end of lazy setup
 }, {
@@ -942,20 +913,15 @@ require('lazy').setup({
   },
 })
 
--- colorscheme
+require 'options'
+
+require 'keymaps'
+
 vim.cmd.colorscheme 'cyberdream'
-
---------------------------------------------------------------------------------
-
--- norminette
-vim.g.syntastic_c_checkers = { 'norminette', 'gcc' }
-vim.g.syntastic_aggregate_errors = 0
 
 -- Opens the quickfix list because of vim-qf plugin.
 -- Prepending 'norm' or 'execute' simulates typing the command,
 -- making it visible in the cmd-line history ' q: '
-
-require 'options'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
