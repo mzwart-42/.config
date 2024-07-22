@@ -12,3 +12,22 @@ return {
     { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
   },
 }
+
+--
+-- return {
+--     'smoka7/hop.nvim',
+--     version = "*",
+--     opts = {
+--         keys = 'etovxqpdygfblzhckisuran'
+--     },
+--     config = function()
+--         require('hop').setup({
+--             create_hl_autocmd = false,
+--             multi_windows = true,
+--
+--
+--         })
+--
+--     end,
+-- }
+

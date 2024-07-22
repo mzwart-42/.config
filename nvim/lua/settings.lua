@@ -1,5 +1,18 @@
--- [[ Custom Options ]]
-
+-- local M = {
+--     theme = {
+--       name = "cyberdream",
+--       style = "dark",
+--       transparent = true,
+--     },
+-- }
+--
+-- function M.activate_theme()
+--     local theme = M.theme
+--
+--     -- local themes = require("theming.themes")
+--     -- themes.activate_theme(theme.name, theme.style, theme.transparent)
+-- end
+--
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -22,8 +35,6 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end,
 })
 
--------------------- clipboard ----------------------
-
 -------------------- autosave ----------------------
 
 -- TODO: Dont autosave if a file is empty, or does not exist?
@@ -36,6 +47,7 @@ local function save()
   end)
 end
 
+--TODO:     Need augroup ?
 vim.api.nvim_create_augroup('AutoSave', {
   clear = true,
 })

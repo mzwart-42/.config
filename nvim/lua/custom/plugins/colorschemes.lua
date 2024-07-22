@@ -28,7 +28,7 @@ return {
     priority = 1000,
     opts = {
       transparent = true,
-      colors = { purple = '#bde5ff', bg = '#bde5ff' },
+      --colors = { purple = '#bde5ff', bg = '#bde5ff' },
     },
 
     -- Sets the colorscheme to cyberdream

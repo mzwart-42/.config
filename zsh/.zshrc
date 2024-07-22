@@ -5,7 +5,7 @@ bindkey -e	# emacs mode
 # move over words with ctrl + arrows and delete with ctrl + backspace (kinda finicky with nvim term)
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
-bindkey "^H" backward-kill-word
+bindkey -M emacs "^H" backward-kill-word
 bindkey ' ' magic-space #expand previous command (for example: sudo !!)
 
 # [ALIASES]
@@ -88,5 +88,3 @@ zstyle ':completion:*' completion-list-bell 'none'
 
 # Disable bell for error messages
 zstyle ':main:' error-message-bell 'none'
-
-
