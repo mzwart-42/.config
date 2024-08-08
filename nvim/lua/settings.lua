@@ -27,8 +27,10 @@ vim.opt.diffopt = 'vertical'
 -- make files search with :e not case sensitive
 vim.opt.wildignorecase = true
 
+local autocmd = vim.api.nvim_create_autocmd
+
 -- because this don't work vim.opt.formatoptions:remove('o')
-vim.api.nvim_create_autocmd({ 'FileType' }, {
+autocmd({ 'FileType' }, {
   pattern = '*',
   callback = function()
     vim.opt.formatoptions:remove { 'o' }
@@ -48,14 +50,45 @@ local function save()
 end
 
 --TODO:     Need augroup ?
+
 vim.api.nvim_create_augroup('AutoSave', {
   clear = true,
 })
 
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+autocmd({ 'InsertLeave', 'TextChanged' }, {
   callback = function()
     save()
   end,
   pattern = '*',
   group = 'AutoSave',
 })
+
+-- local function numbertoggle()
+--   -- Create an autocommand group named 'numbertoggle', clearing any existing autocommands in the group
+--   local group = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
+--
+--   -- Define the autocommands
+--   local buf_enter_focus_gained_insert_leave_win_enter = {
+--     callback = function()
+--       if vim.o.number == 1 and vim.fn.mode() ~= "i" then
+--         vim.cmd("set rnu")
+--       end
+--     end,
+--   }
+--
+--   local buf_leave_focus_lost_insert_enter_win_leave = {
+--     callback = function()
+--       if vim.o.number == 1 then
+--         vim.cmd("set nornu")
+--       end
+--     end,
+--   }
+--
+--   -- Add the defined autocommands to the group
+--   autocmd({'BufEnter','FocusGained','InsertLeave','WinEnter' },buf_enter_focus_gained_insert_leave_win_enter)
+--   autocmd( {'BufLeave','FocusLost','InsertEnter','WinLeave' }, buf_leave_focus_lost_insert_enter_win_leave)
+-- end
+
+-- Call the numbertoggle function to apply the configuration
+-- numbertoggle()
+

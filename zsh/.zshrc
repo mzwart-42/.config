@@ -8,6 +8,9 @@ bindkey "^[[1;5D" backward-word
 bindkey -M emacs "^H" backward-kill-word
 bindkey ' ' magic-space #expand previous command (for example: sudo !!)
 
+#
+bindkey '^U' kill-whole-line
+
 # [ALIASES]
 alias_dir="$ZDOTDIR/aliases"
 source $alias_dir/git.zsh
@@ -40,14 +43,29 @@ setopt share_history          # Share history between different instances of the
 #bindkey '\e[B'	history-beginning-search-backward
 
 # [PROMPT]
+# Starship  ** needs to be installed **
+# eval "$(starship init zsh)"
+
+autoload -Uz promptinit && promptinit
+
+prompt_MyThemeGit_setup() {
 # git prompt stuff: https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Zsh
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info } # precmd gets executed before prompt is displayed
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-zstyle ':vcs_info:git:*' formats '%F{8}on%f %F{2}%b%f' 
-UP_PROMPT='%F{6}%~ %f${vcs_info_msg_0_}'
-PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}ム%f.%F{1}マ%f)%F{12} ~> %f%b'
+zstyle ':vcs_info:git:*' formats '%F{8}on%f %F{2}%b%f'
+UP_PROMPT='%F{6}%~%f${vcs_info_msg_0_}'
+PROMPT=$UP_PROMPT$'\n''%B%(?.%F{2}❯ %f.%F{1}❯ %f)%F{12}%f%b'
+}
+
+# adding a custom theme to the prmpt list
+prompt_themes+=( MyThemeGit )
+
+# load custom theme
+prompt MyThemeGit
+
+
 
 # TIP: you can load a preinstalled theme with the following setup (useful when no internet)
 
@@ -59,32 +77,29 @@ source $ZDOTDIR/codam.sh --quiet
 
 # [SYNTAX HIGHLIGHTING]
 # remove isntalling later
-if [[ ! -d $ZDOTDIR/zsh-syntax-highlighting ]]; then
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/zsh-syntax-highlighting
-fi
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh --quiet
 
 # [AUTO COMPLETION]
-autoload -U compinit; compinit
+# autoload -U compinit; compinit
 
 # fzf tab completion( copy pasted from github repo)
-
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-# NOTE: don't use escape sequences here, fzf-tab will ignore them
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-# preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
-
-# Disable bell for command completions
-zstyle ':completion:*' completion-list-bell 'none'
-
-# Disable bell for error messages
-zstyle ':main:' error-message-bell 'none'
+#
+# # disable sort when completing `git checkout`
+# zstyle ':completion:*:git-checkout:*' sort false
+# # set descriptions format to enable group support
+# # NOTE: don't use escape sequences here, fzf-tab will ignore them
+# zstyle ':completion:*:descriptions' format '[%d]'
+# # set list-colors to enable filename colorizing
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+# zstyle ':completion:*' menu no
+# # preview directory's content with eza when completing cd
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# # switch group using `<` and `>`
+# zstyle ':fzf-tab:*' switch-group '<' '>'
+#
+# # Disable bell for command completions
+# zstyle ':completion:*' completion-list-bell 'none'
+#
+# # Disable bell for error messages
+# zstyle ':main:' error-message-bell 'none'

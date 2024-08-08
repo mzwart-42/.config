@@ -396,16 +396,18 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       local mod = 'C-f' -- ctrl + f
-      vim.keymap.set('n', '<C-f>h', builtin.help_tags, { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+      vim.keymap.set('n', '<C-f>', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<C-f>s', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<C-f>w', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<C-f>g', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<C-f>d', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<C-f>r', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<C-f>.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<C-f>b', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      --vim.keymap.set('n', '<leader><leader>', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -888,15 +890,25 @@ require('lazy').setup({
 
   -- TODO: SEPARATE THESE CUSTOM PLUGINS INTO MODULAR SYSTEM / FODLER STRUCTURE
 
-  -- LOOKS:
-
-  -- EDITING:
-
-  -- FORMATTING AND DEBUGGING:
-
+  -- -- FORMATTING AND DEBUGGING:
+  -- {
+  --   'cacharle/c_formatter_42.vim',
+  --   config = function()
+  --   require("c_formatter_42")
+  --   end,
+  -- },
+  --
   -- qol upgrades for quickfix-list
   { 'romainl/vim-qf' },
 
+  {
+    'folke/zen-mode.nvim',
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
   --end of lazy setup
 }, {
   ui = {
@@ -949,8 +961,8 @@ require 'keymaps'
 --TODO: remove specific entries from jump list?
 
 -- Opens the quickfix list because of vim-qf plugin.
--- Prepending 'norm' or 'execute' simulates typing the command,
+-- Prepending 'norm' or 'execute' simulates typing the command,//////////////////////
 -- making it visible in the cmd-line history ' q: '
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2

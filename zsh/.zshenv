@@ -1,4 +1,5 @@
 # *** This line needs to either be present in /etc/zsh/zshenv or ~/.zshenv ***
+# NOT HERE!!!
 export ZDOTDIR="$HOME/.config/zsh"
 
 # *** more environment variables ***

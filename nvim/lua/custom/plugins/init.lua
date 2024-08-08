@@ -4,4 +4,10 @@
 -- COLOR STUFF
 
 -- See the kickstart.nvim README for more information
-return {}
+return {
+   -- {
+   -- "m4xshen/hardtime.nvim",
+   -- dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+   -- opts = {}
+   -- },
+}

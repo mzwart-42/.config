@@ -5,3 +5,10 @@ alias -g sys='systemctl'
 alias -g vi='nvim' # possibly gets overwritten by codam.sh
 
 alias gdb='gdb -q --args'
+
+function killjobs () {
+    JOBS="$(jobs -p)";
+    if [ -n "${JOBS}" ]; then;
+        kill -KILL ${JOBS};
+    fi
+}
